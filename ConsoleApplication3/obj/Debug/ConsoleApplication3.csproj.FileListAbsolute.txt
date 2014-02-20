@@ -1,0 +1,10 @@
+c:\users\kaus\documents\visual studio 2013\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\ConsoleApplication3.exe.config
+C:\Users\Kaus\documents\visual studio 2013\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\ConsoleApplication3.exe
+C:\Users\Kaus\documents\visual studio 2013\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\ConsoleApplication3.pdb
+C:\Users\Kaus\documents\visual studio 2013\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\SharpDX.DirectInput.dll
+C:\Users\Kaus\documents\visual studio 2013\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\SharpDX.dll
+C:\Users\Kaus\documents\visual studio 2013\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\SharpDX.xml
+C:\Users\Kaus\documents\visual studio 2013\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\SharpDX.DirectInput.xml
+C:\Users\Kaus\documents\visual studio 2013\Projects\ConsoleApplication3\ConsoleApplication3\obj\Debug\ConsoleApplication3.csprojResolveAssemblyReference.cache
+C:\Users\Kaus\documents\visual studio 2013\Projects\ConsoleApplication3\ConsoleApplication3\obj\Debug\ConsoleApplication3.exe
+C:\Users\Kaus\documents\visual studio 2013\Projects\ConsoleApplication3\ConsoleApplication3\obj\Debug\ConsoleApplication3.pdb
