@@ -44,7 +44,6 @@ namespace ConsoleApplication3
                 Console.ReadKey();
                 Environment.Exit(1);
             }
-
             // Instantiate the joystick
             var joystick = new Joystick(directInput, joystickGuid);
 
@@ -60,17 +59,59 @@ namespace ConsoleApplication3
 
             // Acquire the joystick
             joystick.Acquire();
-
+            string s = "there is a cat";
+            string[] words = s.Split(' ');
+            foreach (string word in words)
+            {
+                Console.WriteLine(word);
+            }
             // Poll events from joystick
+            var originX = 0;
+            var originY = 0;
+            var lastStateX = -1;
+            var lastStateY = -1;
+            var startFlag = false;
             while (true)
             {
                 joystick.Poll();
                 var datas = joystick.GetBufferedData();
+                double theta = 0.0;
+                double radius = 0.0;
+
                 foreach (var state in datas)
-                    Console.WriteLine(state);
+                {
+                    if (state.Sequence == 1)
+                    {
+                        s = (state.Offset).ToString();
+                        if (s == "X")
+                            originX = state.Value;
+                        else if (s == "Y")
+                            originY = state.Value;
+                    }
+                    s = (state.Offset).ToString();
+                    if (s == "X")
+                        lastStateX = state.Value;
+                    else if (s == "Y")
+                        lastStateY = state.Value;
+                    startFlag = true;
+                }
+                if (startFlag && datas.Length == 0 && lastStateX != -1 && lastStateY != -1)
+                {
+                    var slope = 0.0;
+                    if ((lastStateX - originX) == 0)
+                        slope = Math.PI / 2;
+                    else
+                        slope = (lastStateY - originY) / (lastStateX - originX);
+                    theta = Math.Atan(slope);
+                    radius = Math.Sqrt(Math.Pow(originX - lastStateX, 2) + Math.Pow(originY - lastStateY, 2));
+                    originX = lastStateX;
+                    originY = lastStateY;
+                    Console.WriteLine(theta);
+                    Console.WriteLine(radius);
+                    startFlag = false;
+                }
             }
         }
-
 
         /// <summary>
         /// The main entry point for the application.
@@ -94,9 +135,8 @@ namespace ConsoleApplication3
                 keyboard.Poll();
                 var datas = keyboard.GetBufferedData();
                 foreach (var state in datas)
-                    Console.WriteLine(state);
+                    Console.WriteLine(datas);
             }
         }
-
     }
 }
