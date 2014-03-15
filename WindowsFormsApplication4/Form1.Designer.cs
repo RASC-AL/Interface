@@ -44,6 +44,9 @@
             this.button9 = new System.Windows.Forms.Button();
             this.btnStartStream = new System.Windows.Forms.Button();
             this.btnStopStream = new System.Windows.Forms.Button();
+            this.imgVideo = new System.Windows.Forms.PictureBox();
+            this.videoPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgVideo)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -157,6 +160,7 @@
             // 
             // videoPanel
             // 
+            this.videoPanel.Controls.Add(this.imgVideo);
             this.videoPanel.Location = new System.Drawing.Point(62, 46);
             this.videoPanel.Name = "videoPanel";
             this.videoPanel.Size = new System.Drawing.Size(605, 395);
@@ -212,6 +216,14 @@
             this.btnStopStream.UseVisualStyleBackColor = true;
             this.btnStopStream.Click += new System.EventHandler(this.btnStopStream_Click);
             // 
+            // imgVideo
+            // 
+            this.imgVideo.Location = new System.Drawing.Point(0, 0);
+            this.imgVideo.Name = "imgVideo";
+            this.imgVideo.Size = new System.Drawing.Size(605, 395);
+            this.imgVideo.TabIndex = 0;
+            this.imgVideo.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -237,6 +249,8 @@
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.videoPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.imgVideo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -260,6 +274,7 @@
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button btnStartStream;
         private System.Windows.Forms.Button btnStopStream;
+        private System.Windows.Forms.PictureBox imgVideo;
     }
 }
 

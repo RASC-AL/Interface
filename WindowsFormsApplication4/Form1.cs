@@ -7,8 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using SharpDX.DirectInput;
-using Gst;
-using Gst.BasePlugins;
+using WinFormCharpWebCam;
+
 
 namespace WindowsFormsApplication4
 {
@@ -17,45 +17,17 @@ namespace WindowsFormsApplication4
         Joystick joystick;
          string type;
          string serial_port;
+         WebCam webcam;
 
-         Pipeline m_Pipeline;
-         Element m_Source, m_Sink;
-
-         Gst.GLib.MainLoop m_GLibMainLoop;
-         System.Threading.Thread m_GLibThread;
         public Form1()
         {
 
             // Create a main loop for GLib, run it in a separate thread
-            m_GLibMainLoop = new Gst.GLib.MainLoop();
-            m_GLibThread = new System.Threading.Thread(m_GLibMainLoop.Run);
-            m_GLibThread.Name = "GLibMainLoop";
-            m_GLibThread.Start();
-
-            System.Threading.Thread.CurrentThread.Name = "WinForms";
-
-            CreatePipeline();
+         
             InitializeComponent();
         }
 
-        private void CreatePipeline()
-        {
-            m_Pipeline = new Pipeline();
-
-            m_Source = Gst.ElementFactory.Make("dshowvideosrc");
-            //m_Source = Gst.ElementFactory.Make("udpsrc");
-             //  m_Source["pattern"] = 18; // Example of setting element properties
-            
-            m_Sink = Gst.ElementFactory.Make("d3dvideosink");
-
-            m_Pipeline.Add(m_Source, m_Sink);
-            m_Source.Link(m_Sink);
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
+    
          void MainForJoystick()
         {
             // Initialize DirectInput
@@ -112,6 +84,7 @@ namespace WindowsFormsApplication4
         {
             type = "arm";
         }
+    
         private void initialize_joystick()
         {
             var directInput = new DirectInput();
@@ -210,28 +183,25 @@ namespace WindowsFormsApplication4
 
         private void btnStartStream_Click(object sender, EventArgs e)
         {
-            // Tell d3dvideosink to render into our window.
-            var overlay = new Gst.Interfaces.XOverlayAdapter(m_Sink.Handle);
-            overlay.XwindowId = (ulong)videoPanel.Handle;
+            webcam.Start();
 
-            m_Pipeline.SetState(State.Playing);
-
-            m_Pipeline.DebugToDotFile("graph"); // Save pipeline to graph.dot
+         
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            webcam = new WebCam();
+            webcam.InitializeWebCam(ref imgVideo);
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            m_GLibMainLoop.Quit();
+   
         }
 
         private void btnStopStream_Click(object sender, EventArgs e)
         {
-            m_Pipeline.SetState(State.Ready);
+            webcam.Stop();
         }
     }
 }
