@@ -1,0 +1,35 @@
+digraph pipeline {
+  rankdir=LR;
+  fontname="sans";
+  fontsize="10";
+  labelloc=t;
+  nodesep=.1;
+  ranksep=.2;
+  label="<GstPipeline>\npipeline0\n[=] -> [>]";
+  node [style=filled, shape=box, fontsize="9", fontname="sans", margin="0.0,0.0"];
+  edge [labelfontsize="6", fontsize="9", fontname="monospace"];
+
+  subgraph cluster_d3dvideosink0_05D1CCF8 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style=filled;
+    color=black;
+
+    label="GstD3DVideoSink\nd3dvideosink0\n[-] -> [=]\nmax-lateness=20000000\nqos=TRUE";
+    d3dvideosink0_05D1CCF8_sink_05DF6100 [color=black, fillcolor="#aaaaff", label="sink\n[>][bfgsb]", height="0.2", style="filled,solid"];
+    fillcolor="#aaaaff";
+  }
+
+  subgraph cluster_dshowvideosrc0_05D19FA8 {
+    fontname="Bitstream Vera Sans";
+    fontsize="8";
+    style=filled;
+    color=black;
+
+    label="GstDshowVideoSrc\ndshowvideosrc0\n[>]";
+    dshowvideosrc0_05D19FA8_src_05DF6038 [color=black, fillcolor="#ffaaaa", label="src\n[>][bfgsb]", height="0.2", style="filled,solid"];
+    fillcolor="#ffaaaa";
+  }
+
+  dshowvideosrc0_05D19FA8_src_05DF6038 -> d3dvideosink0_05D1CCF8_sink_05DF6100 [labeldistance="10", labelangle="0", label="                                                  ", headlabel="video/x-raw-yuv\l              format: I420\l               width: 640\l              height: 480\l           framerate: 30/1\l", taillabel="video/x-raw-yuv\l              format: { YUY2, UYVY, YV12, ... }\l               width: [ 1, 2147483647 ]\l              height: [ 1, 2147483647 ]\l           framerate: [ 0/1, 2147483647/1 ]\l"]
+}

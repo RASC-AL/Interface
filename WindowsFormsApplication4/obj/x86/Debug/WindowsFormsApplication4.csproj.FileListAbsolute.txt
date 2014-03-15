@@ -1,0 +1,14 @@
+F:\Programming\Interface\Interface\WindowsFormsApplication4\obj\x86\Debug\WindowsFormsApplication4.csprojResolveAssemblyReference.cache
+F:\Programming\Interface\Interface\WindowsFormsApplication4\obj\x86\Debug\WindowsFormsApplication4.Form2.resources
+F:\Programming\Interface\Interface\WindowsFormsApplication4\obj\x86\Debug\WindowsFormsApplication4.Form1.resources
+F:\Programming\Interface\Interface\WindowsFormsApplication4\obj\x86\Debug\WindowsFormsApplication4.Properties.Resources.resources
+F:\Programming\Interface\Interface\WindowsFormsApplication4\obj\x86\Debug\WindowsFormsApplication4.csproj.GenerateResource.Cache
+F:\Programming\Interface\Interface\WindowsFormsApplication4\bin\Debug\WindowsFormsApplication4.exe
+F:\Programming\Interface\Interface\WindowsFormsApplication4\bin\Debug\WindowsFormsApplication4.pdb
+F:\Programming\Interface\Interface\WindowsFormsApplication4\bin\Debug\SharpDX.DirectInput.dll
+F:\Programming\Interface\Interface\WindowsFormsApplication4\bin\Debug\SharpDX.dll
+F:\Programming\Interface\Interface\WindowsFormsApplication4\bin\Debug\SharpDX.xml
+F:\Programming\Interface\Interface\WindowsFormsApplication4\bin\Debug\SharpDX.DirectInput.xml
+F:\Programming\Interface\Interface\WindowsFormsApplication4\obj\x86\Debug\WindowsFormsApplication4.exe
+F:\Programming\Interface\Interface\WindowsFormsApplication4\obj\x86\Debug\WindowsFormsApplication4.pdb
+F:\Programming\Interface\Interface\WindowsFormsApplication4\bin\Debug\gstreamer-sharp.dll
