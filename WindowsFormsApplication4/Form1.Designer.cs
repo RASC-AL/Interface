@@ -220,7 +220,7 @@
             // 
             this.imgVideo.Location = new System.Drawing.Point(0, 0);
             this.imgVideo.Name = "imgVideo";
-            this.imgVideo.Size = new System.Drawing.Size(605, 395);
+            this.imgVideo.Size = new System.Drawing.Size(602, 392);
             this.imgVideo.TabIndex = 0;
             this.imgVideo.TabStop = false;
             // 

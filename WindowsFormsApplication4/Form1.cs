@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using SharpDX.DirectInput;
-using WinFormCharpWebCam;
+using MjpegProcessor;
+
 
 
 namespace WindowsFormsApplication4
@@ -17,7 +18,7 @@ namespace WindowsFormsApplication4
         Joystick joystick;
          string type;
          string serial_port;
-         WebCam webcam;
+         MjpegDecoder _mjpeg;
 
         public Form1()
         {
@@ -25,8 +26,14 @@ namespace WindowsFormsApplication4
             // Create a main loop for GLib, run it in a separate thread
          
             InitializeComponent();
+            _mjpeg = new MjpegDecoder();
+            _mjpeg.FrameReady += mjpeg_FrameReady;
         }
 
+        private void mjpeg_FrameReady(object sender, FrameReadyEventArgs e)
+        {
+            imgVideo.Image = e.Bitmap;
+        }
     
          void MainForJoystick()
         {
@@ -183,15 +190,14 @@ namespace WindowsFormsApplication4
 
         private void btnStartStream_Click(object sender, EventArgs e)
         {
-            webcam.Start();
+            _mjpeg.ParseStream(new Uri("http://128.205.54.5:8080/stream?topic=/camera/image_raw"));
 
          
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            webcam = new WebCam();
-            webcam.InitializeWebCam(ref imgVideo);
+
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -201,7 +207,7 @@ namespace WindowsFormsApplication4
 
         private void btnStopStream_Click(object sender, EventArgs e)
         {
-            webcam.Stop();
+
         }
     }
 }
