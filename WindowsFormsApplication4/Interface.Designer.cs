@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApplication4
 {
-    partial class Form1
+    partial class Interface
     {
         /// <summary>
         /// Required designer variable.
@@ -39,12 +39,13 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.videoPanel = new System.Windows.Forms.Panel();
+            this.imgVideo = new System.Windows.Forms.PictureBox();
             this.button6 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.btnStartStream = new System.Windows.Forms.Button();
             this.btnStopStream = new System.Windows.Forms.Button();
-            this.imgVideo = new System.Windows.Forms.PictureBox();
+            this.lblCoordinates = new System.Windows.Forms.Label();
             this.videoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgVideo)).BeginInit();
             this.SuspendLayout();
@@ -160,11 +161,20 @@
             // 
             // videoPanel
             // 
+            this.videoPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.videoPanel.Controls.Add(this.imgVideo);
             this.videoPanel.Location = new System.Drawing.Point(62, 46);
             this.videoPanel.Name = "videoPanel";
-            this.videoPanel.Size = new System.Drawing.Size(605, 395);
+            this.videoPanel.Size = new System.Drawing.Size(640, 400);
             this.videoPanel.TabIndex = 11;
+            // 
+            // imgVideo
+            // 
+            this.imgVideo.Location = new System.Drawing.Point(0, 0);
+            this.imgVideo.Name = "imgVideo";
+            this.imgVideo.Size = new System.Drawing.Size(640, 400);
+            this.imgVideo.TabIndex = 0;
+            this.imgVideo.TabStop = false;
             // 
             // button6
             // 
@@ -216,19 +226,21 @@
             this.btnStopStream.UseVisualStyleBackColor = true;
             this.btnStopStream.Click += new System.EventHandler(this.btnStopStream_Click);
             // 
-            // imgVideo
+            // lblCoordinates
             // 
-            this.imgVideo.Location = new System.Drawing.Point(0, 0);
-            this.imgVideo.Name = "imgVideo";
-            this.imgVideo.Size = new System.Drawing.Size(602, 392);
-            this.imgVideo.TabIndex = 0;
-            this.imgVideo.TabStop = false;
+            this.lblCoordinates.AutoSize = true;
+            this.lblCoordinates.Location = new System.Drawing.Point(62, 448);
+            this.lblCoordinates.Name = "lblCoordinates";
+            this.lblCoordinates.Size = new System.Drawing.Size(30, 13);
+            this.lblCoordinates.TabIndex = 18;
+            this.lblCoordinates.Text = "X: Y:";
             // 
-            // Form1
+            // Interface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1058, 488);
+            this.Controls.Add(this.lblCoordinates);
             this.Controls.Add(this.btnStopStream);
             this.Controls.Add(this.btnStartStream);
             this.Controls.Add(this.button9);
@@ -245,7 +257,7 @@
             this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Name = "Form1";
+            this.Name = "Interface";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -275,6 +287,7 @@
         private System.Windows.Forms.Button btnStartStream;
         private System.Windows.Forms.Button btnStopStream;
         private System.Windows.Forms.PictureBox imgVideo;
+        private System.Windows.Forms.Label lblCoordinates;
     }
 }
 

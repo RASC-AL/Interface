@@ -1,0 +1,16 @@
+F:\Programming\Interface\Interface\WindowsFormsApplication4\bin\Debug\WindowsFormsApplication4.exe
+F:\Programming\Interface\Interface\WindowsFormsApplication4\bin\Debug\WindowsFormsApplication4.pdb
+F:\Programming\Interface\Interface\WindowsFormsApplication4\bin\Debug\Client1.exe
+F:\Programming\Interface\Interface\WindowsFormsApplication4\bin\Debug\MjpegProcessor.dll
+F:\Programming\Interface\Interface\WindowsFormsApplication4\bin\Debug\SharpDX.DirectInput.dll
+F:\Programming\Interface\Interface\WindowsFormsApplication4\bin\Debug\SharpDX.dll
+F:\Programming\Interface\Interface\WindowsFormsApplication4\bin\Debug\Client1.pdb
+F:\Programming\Interface\Interface\WindowsFormsApplication4\bin\Debug\SharpDX.xml
+F:\Programming\Interface\Interface\WindowsFormsApplication4\bin\Debug\SharpDX.DirectInput.xml
+F:\Programming\Interface\Interface\WindowsFormsApplication4\obj\x86\Debug\RoboOps.Interface.csprojResolveAssemblyReference.cache
+F:\Programming\Interface\Interface\WindowsFormsApplication4\obj\x86\Debug\WindowsFormsApplication4.Settings.resources
+F:\Programming\Interface\Interface\WindowsFormsApplication4\obj\x86\Debug\WindowsFormsApplication4.Interface.resources
+F:\Programming\Interface\Interface\WindowsFormsApplication4\obj\x86\Debug\WindowsFormsApplication4.Properties.Resources.resources
+F:\Programming\Interface\Interface\WindowsFormsApplication4\obj\x86\Debug\RoboOps.Interface.csproj.GenerateResource.Cache
+F:\Programming\Interface\Interface\WindowsFormsApplication4\obj\x86\Debug\WindowsFormsApplication4.exe
+F:\Programming\Interface\Interface\WindowsFormsApplication4\obj\x86\Debug\WindowsFormsApplication4.pdb

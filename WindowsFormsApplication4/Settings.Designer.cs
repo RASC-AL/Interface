@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApplication4
 {
-    partial class Form2
+    partial class Settings
     {
         /// <summary>
         /// Required designer variable.

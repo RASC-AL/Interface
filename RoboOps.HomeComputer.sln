@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApplication4", "WindowsFormsApplication4\WindowsFormsApplication4.csproj", "{23A7E53A-DA37-4305-9EB4-14A74408D5A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoboOps.Interface", "WindowsFormsApplication4\RoboOps.Interface.csproj", "{23A7E53A-DA37-4305-9EB4-14A74408D5A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoboOps.HomeClient", "..\..\Home Client\ClientCommunication\Client1\Client1\RoboOps.HomeClient.csproj", "{FD613C89-AC77-43BD-B4D8-53BA474D0259}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +27,16 @@ Global
 		{23A7E53A-DA37-4305-9EB4-14A74408D5A7}.Release|Mixed Platforms.Build.0 = Release|x86
 		{23A7E53A-DA37-4305-9EB4-14A74408D5A7}.Release|x86.ActiveCfg = Release|x86
 		{23A7E53A-DA37-4305-9EB4-14A74408D5A7}.Release|x86.Build.0 = Release|x86
+		{FD613C89-AC77-43BD-B4D8-53BA474D0259}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD613C89-AC77-43BD-B4D8-53BA474D0259}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD613C89-AC77-43BD-B4D8-53BA474D0259}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{FD613C89-AC77-43BD-B4D8-53BA474D0259}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{FD613C89-AC77-43BD-B4D8-53BA474D0259}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FD613C89-AC77-43BD-B4D8-53BA474D0259}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD613C89-AC77-43BD-B4D8-53BA474D0259}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD613C89-AC77-43BD-B4D8-53BA474D0259}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FD613C89-AC77-43BD-B4D8-53BA474D0259}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{FD613C89-AC77-43BD-B4D8-53BA474D0259}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
