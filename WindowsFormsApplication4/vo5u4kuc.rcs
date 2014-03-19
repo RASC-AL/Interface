@@ -72,45 +72,43 @@ namespace RoboOps.Interface
         int originY = 0;
         int lastStateX = -1;
         int lastStateY = -1;
-        int theta1 = 0, theta2 = 0, theta3 = 0;
 
         private void pollJoystick(Object myObject, EventArgs myEventArgs)
         {
+            string s;
+
+            var startFlag = false;
+
             joystick.Poll();
             
+
             var state = joystick.GetCurrentState();
             double theta = 0.0;
             double radius = 0.0;
-
-            lastStateX = state.X - Constants.joystickZeroPose;
-            lastStateY = Constants.joystickZeroPose - state.Y;
+            //Thread.Sleep(Constants.joystickTimeSensitivity);
+            
             
             if (lastStateX != -1 && lastStateY != -1)
             {
-                if (Math.Max(lastStateX, originX) - Math.Min(lastStateX, originX) >= Constants.joystickSensitivity || Math.Max(lastStateY, originY) - Math.Min(lastStateY, originY) >= Constants.joystickSensitivity || (state.PointOfViewControllers[0] == 0 || state.PointOfViewControllers[0] == 18000))
+                if (Math.Max(lastStateX, originX) - Math.Min(lastStateX, originX) >= 256 || Math.Max(lastStateY, originY) - Math.Min(lastStateY, originY) >= 256)
                 {
-                    if (false)
-                    {
-                        theta = Math.Round((Math.Atan2(lastStateY, lastStateX) * 180) / Math.PI);
-                        radius = Math.Round(Math.Sqrt(Math.Pow(originX, 2) + Math.Pow(originY, 2)));
-
-                        MoveRover(originX, originY, radius, theta);
-                    }
+                    originX -= Constants.joystickZeroPose;
+                    originY -= Constants.joystickZeroPose;
+                    var slope = 0.0;
+                    if ((lastStateX - originX) == 0)
+                        slope = Math.PI / 2;
                     else
-                    {
-                        theta1 = originX * Constants.baseMaxRotation / (2 * Constants.joystickMaxPose) + 90;
-                        theta2 = originY * Constants.baseMaxAngle / Constants.joystickMaxPose;
-                        if (state.PointOfViewControllers[0] == 0)
-                            theta3 += Constants.elbowSensitivity;
-                        else if (state.PointOfViewControllers[0] == 18000)
-                            theta3 += Constants.elbowSensitivity;
+                        slope = (lastStateY - originY) / (lastStateX - originX);
+                    theta = (Math.Atan(slope) * 180) / Math.PI;
+                    radius = Math.Sqrt(Math.Pow(originX, 2) + Math.Pow(originY, 2));
 
-                        comm.MoveArm(theta1, theta2, theta3);
-                    }
+                    MoveRover(originX, originY, radius, theta);
                 }
-
                 originX = lastStateX;
                 originY = lastStateY;
+                Console.WriteLine(theta);
+                Console.WriteLine(radius);
+                startFlag = false;
             }
 
         }
@@ -132,13 +130,10 @@ namespace RoboOps.Interface
             }
             else
             {
-                this.lblCoordinates.Text = "X:" + x.ToString()
-                                                        + " Y:" + y.ToString()/*; }));//*/
-                                                        + " R:" + radius.ToString()
-                                                        + " T:" + theta.ToString();
+                this.lblCoordinates.Text = "X:" + x.ToString() + " Y:" + y.ToString();
             }
-            if (theta <= 0)
-                comm.MoveBackward(radius, -theta);
+            if (y <= 0)
+                comm.MoveForward(radius, theta);
             else
                 comm.MoveForward(radius, theta);
         }
@@ -195,6 +190,31 @@ namespace RoboOps.Interface
             type = "drive";// for driving 
         }
 
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButton4_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButton5_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void button4_Click(object sender, EventArgs e)
         {
             // open
@@ -223,7 +243,7 @@ namespace RoboOps.Interface
 
         private void btnStartStream_Click(object sender, EventArgs e)
         {
-            _mjpeg.ParseStream(new Uri("http://128.205.54.5:8080/stream?topic=/chatter"));
+            _mjpeg.ParseStream(new Uri("http://128.205.54.5:8080/stream?topic=/camera/image_raw?width=640?height=400"));
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -242,12 +262,6 @@ namespace RoboOps.Interface
         private void btnStopStream_Click(object sender, EventArgs e)
         {
             _mjpeg.StopStream();
-        }
-
-        private void rbtnCam_Click(object sender, EventArgs e)
-        {
-            var rbtnCam = (RadioButton)sender;
-            comm.ChangeCamera(int.Parse(rbtnCam.Name[rbtnCam.Name.Length-1].ToString()));            
         }
     }
 }

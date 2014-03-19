@@ -80,7 +80,6 @@
             this.rbtnCam1.TabStop = true;
             this.rbtnCam1.Text = "Camera 1";
             this.rbtnCam1.UseVisualStyleBackColor = true;
-            this.rbtnCam1.Click += new System.EventHandler(this.rbtnCam_Click);
             // 
             // rbtnCam2
             // 
@@ -92,7 +91,6 @@
             this.rbtnCam2.TabStop = true;
             this.rbtnCam2.Text = "Camera 2";
             this.rbtnCam2.UseVisualStyleBackColor = true;
-            this.rbtnCam2.Click += new System.EventHandler(this.rbtnCam_Click);
             // 
             // rbtnCam3
             // 
@@ -104,19 +102,18 @@
             this.rbtnCam3.TabStop = true;
             this.rbtnCam3.Text = "Camera 3";
             this.rbtnCam3.UseVisualStyleBackColor = true;
-            this.rbtnCam3.Click += new System.EventHandler(this.rbtnCam_Click);
+            this.rbtnCam3.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
             // rbtnCam4
             // 
             this.rbtnCam4.AutoSize = true;
-            this.rbtnCam4.Location = new System.Drawing.Point(846, 207);
+            this.rbtnCam4.Location = new System.Drawing.Point(846, 205);
             this.rbtnCam4.Name = "rbtnCam4";
             this.rbtnCam4.Size = new System.Drawing.Size(70, 17);
             this.rbtnCam4.TabIndex = 5;
             this.rbtnCam4.TabStop = true;
             this.rbtnCam4.Text = "Camera 4";
             this.rbtnCam4.UseVisualStyleBackColor = true;
-            this.rbtnCam4.Click += new System.EventHandler(this.rbtnCam_Click);
             // 
             // rbtnCam5
             // 

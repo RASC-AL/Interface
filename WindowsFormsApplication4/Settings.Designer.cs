@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApplication4
+﻿namespace RoboOps
 {
     partial class Settings
     {
