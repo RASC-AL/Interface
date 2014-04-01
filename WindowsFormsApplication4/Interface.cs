@@ -11,6 +11,7 @@ using MjpegProcessor;
 using RoboOps.HomeClient;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Diagnostics;
 
 
 
@@ -20,10 +21,12 @@ namespace RoboOps.Interface
     {
         Joystick joystick;
         string type;
-
+        Gamepad gamepad;
         MjpegDecoder _mjpeg;
         RoverComm comm;
         Dictionary<String, CancellationTokenSource> cancelTasks = new Dictionary<String, CancellationTokenSource>();
+        Stopwatch fpsCalculate = new Stopwatch();
+        VideoPanel streamPanel;
 
         public Interface()
         {
@@ -38,25 +41,44 @@ namespace RoboOps.Interface
             //cancelTasks.Add("joystick1", new CancellationTokenSource());
             //CancellationToken ct = cancelTasks["joystick1"].Token;
             //Task.Factory.StartNew(() => MainForJoystick(lblCoordinates), ct);
-
-            initialize_joystick();
-
-            System.Windows.Forms.Timer pollTimer = new System.Windows.Forms.Timer();
-            pollTimer.Tick += pollJoystick;
-            pollTimer.Interval = Constants.joystickTimeSensitivity;
-
-            pollTimer.Start();
+            MainForJoystick();
+            // MainForGamePad();
 
         }
 
         private void mjpeg_FrameReady(object sender, FrameReadyEventArgs e)
         {
-            imgVideo.Image = e.Bitmap;
+            streamPanel.imgVideo.Image = e.Bitmap;
+            var size = e.Bitmap.Size;
+
+
+            //Calculate frame rate
+            if (!fpsCalculate.IsRunning)
+                fpsCalculate.Start();
+            else
+            {
+                lblFps.Text = (1000.0d / fpsCalculate.ElapsedMilliseconds).ToString("F") + " fps";
+                fpsCalculate.Restart();
+            }
         }
 
-        void MainForJoystick(Label labelCoordinates)
+        //void MainForGamePad()
+        //{
+        //    gamepad = new Gamepad();
+        //    System.Windows.Forms.Timer pollTimer = new System.Windows.Forms.Timer();
+        //    pollTimer.Tick += pollGamepad;
+        //    pollTimer.Interval = Constants.joystickTimeSensitivity;
+
+        //    pollTimer.Start();
+        //}
+
+        //void pollGamepad(Object myObject, EventArgs myEventArgs)
+        //{
+        //    gamepad.GetGamepadButton();
+        //}
+
+        void MainForJoystick()
         {
-            // Initialize DirectInput
             initialize_joystick();
 
             System.Windows.Forms.Timer pollTimer = new System.Windows.Forms.Timer();
@@ -64,7 +86,6 @@ namespace RoboOps.Interface
             pollTimer.Interval = Constants.joystickTimeSensitivity;
 
             pollTimer.Start();
-
 
         }
 
@@ -73,78 +94,106 @@ namespace RoboOps.Interface
         int lastStateX = -1;
         int lastStateY = -1;
         int theta1 = 0, theta2 = 0, theta3 = 0;
+        State lastState = State.Stop;
+
+        private enum State 
+        {
+            Stop,
+            MoveLeft,
+            MoveRight,
+            MoveFwd,
+            MoveBack
+        }
 
         private void pollJoystick(Object myObject, EventArgs myEventArgs)
         {
             joystick.Poll();
-            
+
             var state = joystick.GetCurrentState();
-            double theta = 0.0;
-            double radius = 0.0;
 
-            lastStateX = state.X - Constants.joystickZeroPose;
-            lastStateY = Constants.joystickZeroPose - state.Y;
-            
-            if (lastStateX != -1 && lastStateY != -1)
+            if (state.PointOfViewControllers[0] == 27000)
             {
-                if (Math.Max(lastStateX, originX) - Math.Min(lastStateX, originX) >= Constants.joystickSensitivity || Math.Max(lastStateY, originY) - Math.Min(lastStateY, originY) >= Constants.joystickSensitivity || (state.PointOfViewControllers[0] == 0 || state.PointOfViewControllers[0] == 18000))
+                if (!(lastState == State.MoveLeft))
                 {
-                    if (false)
-                    {
-                        theta = Math.Round((Math.Atan2(lastStateY, lastStateX) * 180) / Math.PI);
-                        radius = Math.Round(Math.Sqrt(Math.Pow(originX, 2) + Math.Pow(originY, 2)));
-
-                        MoveRover(originX, originY, radius, theta);
-                    }
-                    else
-                    {
-                        theta1 = originX * Constants.baseMaxRotation / (2 * Constants.joystickMaxPose) + 90;
-                        theta2 = originY * Constants.baseMaxAngle / Constants.joystickMaxPose;
-                        if (state.PointOfViewControllers[0] == 0)
-                            theta3 += Constants.elbowSensitivity;
-                        else if (state.PointOfViewControllers[0] == 18000)
-                            theta3 += Constants.elbowSensitivity;
-
-                        comm.MoveArm(theta1, theta2, theta3);
-                    }
+                    MoveLeft();
+                    lastState = State.MoveLeft;
                 }
+            }
+            if (state.PointOfViewControllers[0] == 9000)
+            {
+                if (!(lastState == State.MoveRight))
+                {
+                    MoveRight();
+                    lastState = State.MoveRight;
+                }
+            }
+            if (state.PointOfViewControllers[0] == 0)
+            {
+                if (!(lastState == State.MoveFwd))
+                {
+                    MoveFwd();
+                    lastState = State.MoveFwd;
+                }
+            }
+            if (state.PointOfViewControllers[0] == 18000)
+            {
+                if (!(lastState == State.MoveBack))
+                {
+                    MoveBack();
+                    lastState = State.MoveBack;
+                }
+            }
+            if (state.PointOfViewControllers[0] == -1)
+            {
+                if (!(lastState == State.Stop))
+                {
+                    Stop();
+                    lastState = State.Stop;
+                }
+            }
 
-                originX = lastStateX;
-                originY = lastStateY;
+
+            if (Math.Max(lastStateX, originX) - Math.Min(lastStateX, originX) >= Constants.joystickSensitivity || Math.Max(lastStateY, originY) - Math.Min(lastStateY, originY) >= Constants.joystickSensitivity)
+            {
+                
+                    theta1 = originX * Constants.baseMaxRotation / (2 * Constants.joystickMaxPose) + 90;
+                    theta2 = originY * Constants.baseMaxAngle / Constants.joystickMaxPose;
+                    if (state.PointOfViewControllers[0] == 0)
+                        theta3 += Constants.elbowSensitivity;
+                    else if (state.PointOfViewControllers[0] == 18000)
+                        theta3 += Constants.elbowSensitivity;
+
+                    comm.MoveArm(theta1, theta2, theta3);
             }
 
         }
 
-        private void MoveRover(int x, int y, double radius, double theta)
+        private void MoveLeft()
         {
-            // Max = 65535 Center between 32767 and 32511  sensititvity 256
-            // Invoke the Background worker thread (UI thread) from joystick i/p thread to send the value of X and Y position of joystick
-            if (this.lblCoordinates.InvokeRequired)
-            {
-                this.lblCoordinates.BeginInvoke(
-                    new MethodInvoker(delegate()
-                        {
-                            this.lblCoordinates.Text = "X:" + x.ToString()
-                                                        + " Y:" + y.ToString()/*; }));//*/
-                                                        + " R:" + radius.ToString()
-                                                        + " T:" + theta.ToString();
-                        }));
-            }
-            else
-            {
-                this.lblCoordinates.Text = "X:" + x.ToString()
-                                                        + " Y:" + y.ToString()/*; }));//*/
-                                                        + " R:" + radius.ToString()
-                                                        + " T:" + theta.ToString();
-            }
-            if (theta <= 0)
-                comm.MoveBackward(radius, -theta);
-            else
-                comm.MoveForward(radius, theta);
+            comm.MoveRover(-Constants.turnSpeed, Constants.turnSpeed);
         }
 
+        private void MoveRight()
+        {
+            comm.MoveRover(Constants.turnSpeed, -Constants.turnSpeed);
+        }
 
+        private void MoveFwd()
+        {
+            comm.MoveRover(Constants.fwdSpeed, Constants.fwdSpeed);
+        }
 
+        private void MoveBack()
+        {
+            comm.MoveRover(-Constants.turnSpeed, -Constants.turnSpeed);
+        }
+        
+        private void Stop()
+        {
+            comm.MoveRover(0, 0);
+        }
+
+        
         private void button1_Click(object sender, EventArgs e)
         {
             type = "arm";
@@ -223,6 +272,8 @@ namespace RoboOps.Interface
 
         private void btnStartStream_Click(object sender, EventArgs e)
         {
+            streamPanel = new VideoPanel();
+            streamPanel.Show();
             _mjpeg.ParseStream(new Uri("http://128.205.54.5:8080/stream?topic=/chatter"));
         }
 
@@ -241,13 +292,50 @@ namespace RoboOps.Interface
 
         private void btnStopStream_Click(object sender, EventArgs e)
         {
+            streamPanel.Close();
             _mjpeg.StopStream();
+            fpsCalculate.Reset();
         }
 
         private void rbtnCam_Click(object sender, EventArgs e)
         {
             var rbtnCam = (RadioButton)sender;
-            comm.ChangeCamera(int.Parse(rbtnCam.Name[rbtnCam.Name.Length-1].ToString()));            
+            comm.ChangeCamera(int.Parse(rbtnCam.Name[rbtnCam.Name.Length - 1].ToString()));
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rbtnCam4_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rbtnCam3_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rbtnCam2_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rbtnCam1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblCoordinates_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rbtnCam5_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

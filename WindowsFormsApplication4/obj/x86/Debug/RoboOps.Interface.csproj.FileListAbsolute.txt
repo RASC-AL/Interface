@@ -14,3 +14,6 @@ F:\Programming\Interface\Interface\WindowsFormsApplication4\obj\x86\Debug\RoboOp
 F:\Programming\Interface\Interface\WindowsFormsApplication4\obj\x86\Debug\RoboOps.Interface.csproj.GenerateResource.Cache
 F:\Programming\Interface\Interface\WindowsFormsApplication4\obj\x86\Debug\RoboOps.Interface.exe
 F:\Programming\Interface\Interface\WindowsFormsApplication4\obj\x86\Debug\RoboOps.Interface.pdb
+F:\Programming\Interface\Interface\WindowsFormsApplication4\obj\x86\Debug\RoboOps.Interface.VideoPanel.resources
+F:\Programming\Interface\Interface\WindowsFormsApplication4\bin\Debug\SharpDX.XInput.dll
+F:\Programming\Interface\Interface\WindowsFormsApplication4\bin\Debug\SharpDX.XInput.xml
