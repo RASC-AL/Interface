@@ -59,7 +59,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
-    <Compile Include="Gamepad.cs" />
     <Compile Include="Settings.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -21,7 +21,6 @@ namespace RoboOps.Interface
     {
         Joystick joystick;
         string type;
-        Gamepad gamepad;
         MjpegDecoder _mjpeg;
         RoverComm comm;
         Dictionary<String, CancellationTokenSource> cancelTasks = new Dictionary<String, CancellationTokenSource>();
@@ -93,7 +92,7 @@ namespace RoboOps.Interface
         int originY = 0;
         int lastStateX = -1;
         int lastStateY = -1;
-        int theta1 = 0, theta2 = 0, theta3 = 0;
+        int baseRotation = 0, baseLift = 0, elbow = 0, yaw = 0; //TODO: Assign initial encoder value
         State lastState = State.Stop;
 
         private enum State 
@@ -110,7 +109,8 @@ namespace RoboOps.Interface
             joystick.Poll();
 
             var state = joystick.GetCurrentState();
-
+            
+            //Arrow keys to drive rover
             if (state.PointOfViewControllers[0] == 27000)
             {
                 if (!(lastState == State.MoveLeft))
@@ -152,19 +152,68 @@ namespace RoboOps.Interface
                 }
             }
 
-
-            if (Math.Max(lastStateX, originX) - Math.Min(lastStateX, originX) >= Constants.joystickSensitivity || Math.Max(lastStateY, originY) - Math.Min(lastStateY, originY) >= Constants.joystickSensitivity)
+            //Joysticks to move arm
+            //Base control
+            bool moveArm = false;
+            if (state.X <= Constants.joystickSensitivity && baseRotation > Constants.baseMinRotation)
             {
-                
-                    theta1 = originX * Constants.baseMaxRotation / (2 * Constants.joystickMaxPose) + 90;
-                    theta2 = originY * Constants.baseMaxAngle / Constants.joystickMaxPose;
-                    if (state.PointOfViewControllers[0] == 0)
-                        theta3 += Constants.elbowSensitivity;
-                    else if (state.PointOfViewControllers[0] == 18000)
-                        theta3 += Constants.elbowSensitivity;
-
-                    comm.MoveArm(theta1, theta2, theta3);
+                baseRotation -= Constants.baseRotationSensitivity;
+                moveArm = true;
             }
+            if (state.X >= Constants.joystickMaxPose - Constants.joystickSensitivity && baseRotation < Constants.baseMaxRotation)
+            {
+                baseRotation += Constants.baseRotationSensitivity;
+                moveArm = true;
+            }
+            if (state.Y <= Constants.joystickSensitivity && baseLift < Constants.baseMaxLift)
+            {
+                baseLift += Constants.baseLiftSensitivity;
+                moveArm = true;
+            }
+            if (state.Y >= Constants.joystickMaxPose - Constants.joystickSensitivity && baseLift > Constants.baseMinLift)
+            {
+                baseLift -= Constants.baseLiftSensitivity;
+                moveArm = true;
+            }
+
+            //Elbow and yaw control
+            if (state.RotationX <= Constants.joystickSensitivity && yaw > Constants.yawMin)
+            {
+                yaw -= Constants.baseRotationSensitivity;
+                moveArm = true;
+            }
+            if (state.RotationX >= Constants.joystickMaxPose - Constants.joystickSensitivity && yaw < Constants.yawMax)
+            {
+                yaw += Constants.baseRotationSensitivity;
+                moveArm = true;
+            }
+            if (state.RotationY <= Constants.joystickSensitivity && elbow < Constants.elbowMaxLift)
+            {
+                elbow += Constants.baseLiftSensitivity;
+                moveArm = true;
+            }
+            if (state.RotationY >= Constants.joystickMaxPose - Constants.joystickSensitivity && elbow > Constants.elbowMinLift)
+            {
+                elbow -= Constants.baseLiftSensitivity;
+                moveArm = true;
+            }
+
+            if(moveArm)
+                comm.MoveArm(baseRotation, baseLift, elbow, yaw);
+
+
+
+            //if (Math.Max(lastStateX, originX) - Math.Min(lastStateX, originX) >= Constants.joystickSensitivity || Math.Max(lastStateY, originY) - Math.Min(lastStateY, originY) >= Constants.joystickSensitivity)
+            //{
+            //    baseRotation = originX * Constants.baseMaxRotation / (2 * Constants.joystickMaxPose) + 90;
+            //        theta2 = originY * Constants.baseMaxAngle / Constants.joystickMaxPose;
+            //        if (state.PointOfViewControllers[0] == 0)
+            //            theta3 += Constants.elbowSensitivity;
+            //        else if (state.PointOfViewControllers[0] == 18000)
+            //            theta3 += Constants.elbowSensitivity;
+
+            //        comm.MoveArm(baseRotation, theta2, theta3);
+            //}
 
         }
 
