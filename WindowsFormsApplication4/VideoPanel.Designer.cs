@@ -34,12 +34,14 @@
             // 
             // imgVideo
             // 
+            this.imgVideo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.imgVideo.Cursor = System.Windows.Forms.Cursors.Default;
-            this.imgVideo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.imgVideo.Location = new System.Drawing.Point(0, 0);
             this.imgVideo.Name = "imgVideo";
             this.imgVideo.Size = new System.Drawing.Size(303, 295);
-            this.imgVideo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.imgVideo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.imgVideo.TabIndex = 0;
             this.imgVideo.TabStop = false;
             // 
@@ -52,13 +54,13 @@
             this.Text = "VideoPanel";
             ((System.ComponentModel.ISupportInitialize)(this.imgVideo)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         public System.Windows.Forms.PictureBox imgVideo;
+
 
 
 

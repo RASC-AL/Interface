@@ -36,12 +36,7 @@ namespace RoboOps.Interface
 
             this.comm = new RoverComm(Constants.RoverIP, Constants.RoverPort);  // Initialize the communication module
 
-            // Start receiving joystick input on spearate thread. Add cancellation token which will be invoked when form is closed.
-            //cancelTasks.Add("joystick1", new CancellationTokenSource());
-            //CancellationToken ct = cancelTasks["joystick1"].Token;
-            //Task.Factory.StartNew(() => MainForJoystick(lblCoordinates), ct);
             MainForJoystick();
-            // MainForGamePad();
 
         }
 
@@ -49,7 +44,9 @@ namespace RoboOps.Interface
         {
             streamPanel.imgVideo.Image = e.Bitmap;
             var size = e.Bitmap.Size;
-
+            var newFrameSize = new Size(streamPanel.imgVideo.Size.Width, size.Height * streamPanel.imgVideo.Size.Width / size.Width);
+            if(newFrameSize.Height<=streamPanel.Size.Height) 
+                streamPanel.imgVideo.Size = newFrameSize;
 
             //Calculate frame rate
             if (!fpsCalculate.IsRunning)
@@ -61,21 +58,7 @@ namespace RoboOps.Interface
             }
         }
 
-        //void MainForGamePad()
-        //{
-        //    gamepad = new Gamepad();
-        //    System.Windows.Forms.Timer pollTimer = new System.Windows.Forms.Timer();
-        //    pollTimer.Tick += pollGamepad;
-        //    pollTimer.Interval = Constants.joystickTimeSensitivity;
-
-        //    pollTimer.Start();
-        //}
-
-        //void pollGamepad(Object myObject, EventArgs myEventArgs)
-        //{
-        //    gamepad.GetGamepadButton();
-        //}
-
+  
         void MainForJoystick()
         {
             initialize_joystick();
@@ -88,11 +71,7 @@ namespace RoboOps.Interface
 
         }
 
-        int originX = 0;
-        int originY = 0;
-        int lastStateX = -1;
-        int lastStateY = -1;
-        int baseRotation = 0, baseLift = 0, elbow = 0, yaw = 0; //TODO: Assign initial encoder value
+        int baseRotation = 40, baseLift = -20, elbow = 10, yaw = 10; //TODO: Assign initial encoder value
         State lastState = State.Stop;
 
         private enum State 
@@ -111,48 +90,14 @@ namespace RoboOps.Interface
             var state = joystick.GetCurrentState();
             
             //Arrow keys to drive rover
-            if (state.PointOfViewControllers[0] == 27000)
-            {
-                if (!(lastState == State.MoveLeft))
-                {
-                    MoveLeft();
-                    lastState = State.MoveLeft;
-                }
-            }
-            if (state.PointOfViewControllers[0] == 9000)
-            {
-                if (!(lastState == State.MoveRight))
-                {
-                    MoveRight();
-                    lastState = State.MoveRight;
-                }
-            }
-            if (state.PointOfViewControllers[0] == 0)
-            {
-                if (!(lastState == State.MoveFwd))
-                {
-                    MoveFwd();
-                    lastState = State.MoveFwd;
-                }
-            }
-            if (state.PointOfViewControllers[0] == 18000)
-            {
-                if (!(lastState == State.MoveBack))
-                {
-                    MoveBack();
-                    lastState = State.MoveBack;
-                }
-            }
-            if (state.PointOfViewControllers[0] == -1)
-            {
-                if (!(lastState == State.Stop))
-                {
-                    Stop();
-                    lastState = State.Stop;
-                }
-            }
+            DriveMotors(state);
 
             //Joysticks to move arm
+            ArmControl(state);
+        }
+
+        private void ArmControl(JoystickState state)
+        {
             //Base control
             bool moveArm = false;
             if (state.X <= Constants.joystickSensitivity && baseRotation > Constants.baseMinRotation)
@@ -198,43 +143,74 @@ namespace RoboOps.Interface
                 moveArm = true;
             }
 
-            if(moveArm)
+            if (moveArm)
                 comm.MoveArm(baseRotation, baseLift, elbow, yaw);
+        }
 
-
-
-            //if (Math.Max(lastStateX, originX) - Math.Min(lastStateX, originX) >= Constants.joystickSensitivity || Math.Max(lastStateY, originY) - Math.Min(lastStateY, originY) >= Constants.joystickSensitivity)
-            //{
-            //    baseRotation = originX * Constants.baseMaxRotation / (2 * Constants.joystickMaxPose) + 90;
-            //        theta2 = originY * Constants.baseMaxAngle / Constants.joystickMaxPose;
-            //        if (state.PointOfViewControllers[0] == 0)
-            //            theta3 += Constants.elbowSensitivity;
-            //        else if (state.PointOfViewControllers[0] == 18000)
-            //            theta3 += Constants.elbowSensitivity;
-
-            //        comm.MoveArm(baseRotation, theta2, theta3);
-            //}
-
+        private void DriveMotors(JoystickState state)
+        {
+            if (state.Z > Constants.joystickMaxPose - Constants.joystickSensitivity)
+                Stop();
+            if (state.PointOfViewControllers[0] == 27000)
+            {
+                if (!(lastState == State.MoveLeft))
+                {
+                    MoveLeft();
+                    lastState = State.MoveLeft;
+                }
+            }
+            if (state.PointOfViewControllers[0] == 9000)
+            {
+                if (!(lastState == State.MoveRight))
+                {
+                    MoveRight();
+                    lastState = State.MoveRight;
+                }
+            }
+            if (state.PointOfViewControllers[0] == 0)
+            {
+                if (!(lastState == State.MoveFwd))
+                {
+                    MoveFwd();
+                    lastState = State.MoveFwd;
+                }
+            }
+            if (state.PointOfViewControllers[0] == 18000)
+            {
+                if (!(lastState == State.MoveBack))
+                {
+                    MoveBack();
+                    lastState = State.MoveBack;
+                }
+            }
+            if (state.PointOfViewControllers[0] == -1)
+            {
+                if (!(lastState == State.Stop))
+                {
+                    Stop();
+                    lastState = State.Stop;
+                }
+            }
         }
 
         private void MoveLeft()
         {
-            comm.MoveRover(-Constants.turnSpeed, Constants.turnSpeed);
+            comm.MoveRover(-Constants.turnSpeed * drvSpeed.Value / 100, Constants.turnSpeed * drvSpeed.Value / 100);
         }
 
         private void MoveRight()
         {
-            comm.MoveRover(Constants.turnSpeed, -Constants.turnSpeed);
+            comm.MoveRover(Constants.turnSpeed * drvSpeed.Value / 100, -Constants.turnSpeed * drvSpeed.Value / 100);
         }
 
         private void MoveFwd()
         {
-            comm.MoveRover(Constants.fwdSpeed, Constants.fwdSpeed);
+            comm.MoveRover(Constants.fwdSpeed * drvSpeed.Value / 100, Constants.fwdSpeed * drvSpeed.Value / 100);
         }
 
         private void MoveBack()
         {
-            comm.MoveRover(-Constants.turnSpeed, -Constants.turnSpeed);
+            comm.MoveRover(-Constants.turnSpeed * drvSpeed.Value / 100, -Constants.turnSpeed * drvSpeed.Value / 100);
         }
         
         private void Stop()
@@ -288,30 +264,6 @@ namespace RoboOps.Interface
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            type = "drive";// for driving 
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            // open
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            // close
-        }
-
-        private void button8_Click(object sender, EventArgs e)
-        {
-            // arm home
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-            // connect rover
-        }
 
         private void button9_Click(object sender, EventArgs e)
         {
@@ -323,7 +275,7 @@ namespace RoboOps.Interface
         {
             streamPanel = new VideoPanel();
             streamPanel.Show();
-            _mjpeg.ParseStream(new Uri("http://128.205.54.5:8080/stream?topic=/chatter"));
+            _mjpeg.ParseStream(new Uri("http://166.149.188.104:8080/stream?topic=/chatter"));
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -349,42 +301,10 @@ namespace RoboOps.Interface
         private void rbtnCam_Click(object sender, EventArgs e)
         {
             var rbtnCam = (RadioButton)sender;
-            comm.ChangeCamera(int.Parse(rbtnCam.Name[rbtnCam.Name.Length - 1].ToString()));
+            if(rbtnCam.Checked)
+                comm.ChangeCamera(int.Parse(rbtnCam.Name[rbtnCam.Name.Length - 1].ToString()));
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void rbtnCam4_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void rbtnCam3_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void rbtnCam2_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void rbtnCam1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblCoordinates_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void rbtnCam5_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
+       
     }
 }

@@ -9,7 +9,7 @@ namespace RoboOps.Interface
     {
         //Communication config
         //public static string RoverIP = "128.205.54.5";
-        public static string RoverIP = "127.0.0.1";
+        public static string RoverIP = "128.205.54.5";
         public static int RoverPort = 5000;
         
         //Arm config
@@ -23,20 +23,20 @@ namespace RoboOps.Interface
         public static int fwdSpeed = 20;
 
         //Arm constants
-        public static int baseMinRotation = 0;
+        public static int baseMinRotation = -100;
         public static int baseMaxRotation = 120;
         public static int baseRotationSensitivity = 5;
 
-        public static int baseMaxLift = 90;
         public static int baseMinLift = 0;
+        public static int baseMaxLift = 90;
         public static int baseLiftSensitivity = 5;
 
-        public static int elbowMaxLift = 90;
         public static int elbowMinLift = 0;
+        public static int elbowMaxLift = 90;
         public static int elbowSensitivity = 5;
 
-        public static int yawMax = 90;
         public static int yawMin = 0;
+        public static int yawMax = 90;
         public static int yawSensitivity = 1;
         
     }
