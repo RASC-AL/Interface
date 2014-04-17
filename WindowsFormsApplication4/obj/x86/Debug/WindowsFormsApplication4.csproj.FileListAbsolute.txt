@@ -11,4 +11,4 @@ F:\Programming\Interface\Interface\WindowsFormsApplication4\bin\Debug\SharpDX.xm
 F:\Programming\Interface\Interface\WindowsFormsApplication4\bin\Debug\SharpDX.DirectInput.xml
 F:\Programming\Interface\Interface\WindowsFormsApplication4\obj\x86\Debug\WindowsFormsApplication4.exe
 F:\Programming\Interface\Interface\WindowsFormsApplication4\obj\x86\Debug\WindowsFormsApplication4.pdb
-F:\Programming\Interface\Interface\WindowsFormsApplication4\bin\Debug\gstreamer-sharp.dll
+F:\Programming\Interface\Interface\WindowsFormsApplication4\bin\Debug\MjpegProcessor.dll

@@ -1,0 +1,367 @@
+﻿namespace RoboOps.Interface
+{
+    partial class Interface
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            this.rbtnCam1 = new System.Windows.Forms.RadioButton();
+            this.rbtnCam2 = new System.Windows.Forms.RadioButton();
+            this.rbtnCam3 = new System.Windows.Forms.RadioButton();
+            this.rbtnCam4 = new System.Windows.Forms.RadioButton();
+            this.rbtnCam5 = new System.Windows.Forms.RadioButton();
+            this.btnStartStream = new System.Windows.Forms.Button();
+            this.btnStopStream = new System.Windows.Forms.Button();
+            this.lblFps = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.label1 = new System.Windows.Forms.Label();
+            this.drvSpeed = new System.Windows.Forms.HScrollBar();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.lblRoverIp = new System.Windows.Forms.Label();
+            this.lblPort = new System.Windows.Forms.Label();
+            this.lblJoystickZero = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lbljoystickMax = new System.Windows.Forms.Label();
+            this.lblJoystickPollInterval = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // rbtnCam1
+            // 
+            this.rbtnCam1.AutoSize = true;
+            this.rbtnCam1.Checked = true;
+            this.rbtnCam1.Location = new System.Drawing.Point(113, 237);
+            this.rbtnCam1.Name = "rbtnCam1";
+            this.rbtnCam1.Size = new System.Drawing.Size(70, 17);
+            this.rbtnCam1.TabIndex = 2;
+            this.rbtnCam1.TabStop = true;
+            this.rbtnCam1.Text = "Camera 1";
+            this.rbtnCam1.UseVisualStyleBackColor = true;
+            this.rbtnCam1.CheckedChanged += new System.EventHandler(this.rbtnCam_Click);
+            // 
+            // rbtnCam2
+            // 
+            this.rbtnCam2.AutoSize = true;
+            this.rbtnCam2.Location = new System.Drawing.Point(113, 261);
+            this.rbtnCam2.Name = "rbtnCam2";
+            this.rbtnCam2.Size = new System.Drawing.Size(70, 17);
+            this.rbtnCam2.TabIndex = 3;
+            this.rbtnCam2.Text = "Camera 2";
+            this.rbtnCam2.UseVisualStyleBackColor = true;
+            this.rbtnCam2.CheckedChanged += new System.EventHandler(this.rbtnCam_Click);
+            // 
+            // rbtnCam3
+            // 
+            this.rbtnCam3.AutoSize = true;
+            this.rbtnCam3.Location = new System.Drawing.Point(113, 285);
+            this.rbtnCam3.Name = "rbtnCam3";
+            this.rbtnCam3.Size = new System.Drawing.Size(70, 17);
+            this.rbtnCam3.TabIndex = 4;
+            this.rbtnCam3.Text = "Camera 3";
+            this.rbtnCam3.UseVisualStyleBackColor = true;
+            this.rbtnCam3.CheckedChanged += new System.EventHandler(this.rbtnCam_Click);
+            // 
+            // rbtnCam4
+            // 
+            this.rbtnCam4.AutoSize = true;
+            this.rbtnCam4.Location = new System.Drawing.Point(113, 311);
+            this.rbtnCam4.Name = "rbtnCam4";
+            this.rbtnCam4.Size = new System.Drawing.Size(70, 17);
+            this.rbtnCam4.TabIndex = 5;
+            this.rbtnCam4.Text = "Camera 4";
+            this.rbtnCam4.UseVisualStyleBackColor = true;
+            this.rbtnCam4.CheckedChanged += new System.EventHandler(this.rbtnCam_Click);
+            // 
+            // rbtnCam5
+            // 
+            this.rbtnCam5.AutoSize = true;
+            this.rbtnCam5.Location = new System.Drawing.Point(113, 333);
+            this.rbtnCam5.Name = "rbtnCam5";
+            this.rbtnCam5.Size = new System.Drawing.Size(70, 17);
+            this.rbtnCam5.TabIndex = 6;
+            this.rbtnCam5.Text = "Camera 5";
+            this.rbtnCam5.UseVisualStyleBackColor = true;
+            this.rbtnCam5.CheckedChanged += new System.EventHandler(this.rbtnCam_Click);
+            // 
+            // btnStartStream
+            // 
+            this.btnStartStream.Location = new System.Drawing.Point(95, 203);
+            this.btnStartStream.Name = "btnStartStream";
+            this.btnStartStream.Size = new System.Drawing.Size(75, 23);
+            this.btnStartStream.TabIndex = 16;
+            this.btnStartStream.Text = "Start Stream";
+            this.btnStartStream.UseVisualStyleBackColor = true;
+            this.btnStartStream.Click += new System.EventHandler(this.btnStartStream_Click);
+            // 
+            // btnStopStream
+            // 
+            this.btnStopStream.Location = new System.Drawing.Point(194, 203);
+            this.btnStopStream.Name = "btnStopStream";
+            this.btnStopStream.Size = new System.Drawing.Size(75, 23);
+            this.btnStopStream.TabIndex = 17;
+            this.btnStopStream.Text = "Stop Stream";
+            this.btnStopStream.UseVisualStyleBackColor = true;
+            this.btnStopStream.Click += new System.EventHandler(this.btnStopStream_Click);
+            // 
+            // lblFps
+            // 
+            this.lblFps.AutoSize = true;
+            this.lblFps.Location = new System.Drawing.Point(275, 208);
+            this.lblFps.Name = "lblFps";
+            this.lblFps.Size = new System.Drawing.Size(21, 13);
+            this.lblFps.TabIndex = 19;
+            this.lblFps.Text = "fps";
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.splitContainer2);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.label1);
+            this.splitContainer1.Panel2.Controls.Add(this.drvSpeed);
+            this.splitContainer1.Panel2.Controls.Add(this.rbtnCam2);
+            this.splitContainer1.Panel2.Controls.Add(this.lblFps);
+            this.splitContainer1.Panel2.Controls.Add(this.rbtnCam1);
+            this.splitContainer1.Panel2.Controls.Add(this.btnStopStream);
+            this.splitContainer1.Panel2.Controls.Add(this.rbtnCam3);
+            this.splitContainer1.Panel2.Controls.Add(this.btnStartStream);
+            this.splitContainer1.Panel2.Controls.Add(this.rbtnCam4);
+            this.splitContainer1.Panel2.Controls.Add(this.rbtnCam5);
+            this.splitContainer1.Size = new System.Drawing.Size(1087, 693);
+            this.splitContainer1.SplitterDistance = 631;
+            this.splitContainer1.TabIndex = 20;
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.lblJoystickPollInterval);
+            this.splitContainer2.Panel1.Controls.Add(this.lbljoystickMax);
+            this.splitContainer2.Panel1.Controls.Add(this.label5);
+            this.splitContainer2.Panel1.Controls.Add(this.lblJoystickZero);
+            this.splitContainer2.Panel1.Controls.Add(this.lblPort);
+            this.splitContainer2.Panel1.Controls.Add(this.lblRoverIp);
+            this.splitContainer2.Panel1.Controls.Add(this.textBox6);
+            this.splitContainer2.Panel1.Controls.Add(this.textBox5);
+            this.splitContainer2.Panel1.Controls.Add(this.textBox4);
+            this.splitContainer2.Panel1.Controls.Add(this.textBox3);
+            this.splitContainer2.Panel1.Controls.Add(this.textBox2);
+            this.splitContainer2.Panel1.Controls.Add(this.textBox1);
+            this.splitContainer2.Size = new System.Drawing.Size(631, 693);
+            this.splitContainer2.SplitterDistance = 264;
+            this.splitContainer2.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(92, 428);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(38, 13);
+            this.label1.TabIndex = 22;
+            this.label1.Text = "Speed";
+            // 
+            // drvSpeed
+            // 
+            this.drvSpeed.Location = new System.Drawing.Point(95, 453);
+            this.drvSpeed.Name = "drvSpeed";
+            this.drvSpeed.Size = new System.Drawing.Size(261, 22);
+            this.drvSpeed.TabIndex = 21;
+            this.drvSpeed.Value = 50;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(172, 9);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(126, 20);
+            this.textBox1.TabIndex = 0;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(399, 9);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(126, 20);
+            this.textBox2.TabIndex = 1;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(172, 86);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(126, 20);
+            this.textBox3.TabIndex = 2;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(399, 168);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(126, 20);
+            this.textBox4.TabIndex = 3;
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(172, 168);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(126, 20);
+            this.textBox5.TabIndex = 4;
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(399, 86);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(126, 20);
+            this.textBox6.TabIndex = 5;
+            // 
+            // lblRoverIp
+            // 
+            this.lblRoverIp.AutoSize = true;
+            this.lblRoverIp.Location = new System.Drawing.Point(45, 16);
+            this.lblRoverIp.Name = "lblRoverIp";
+            this.lblRoverIp.Size = new System.Drawing.Size(49, 13);
+            this.lblRoverIp.TabIndex = 6;
+            this.lblRoverIp.Text = "Rover IP";
+            // 
+            // lblPort
+            // 
+            this.lblPort.AutoSize = true;
+            this.lblPort.Location = new System.Drawing.Point(335, 16);
+            this.lblPort.Name = "lblPort";
+            this.lblPort.Size = new System.Drawing.Size(26, 13);
+            this.lblPort.TabIndex = 7;
+            this.lblPort.Text = "Port";
+            // 
+            // lblJoystickZero
+            // 
+            this.lblJoystickZero.AutoSize = true;
+            this.lblJoystickZero.Location = new System.Drawing.Point(45, 93);
+            this.lblJoystickZero.Name = "lblJoystickZero";
+            this.lblJoystickZero.Size = new System.Drawing.Size(70, 13);
+            this.lblJoystickZero.TabIndex = 8;
+            this.lblJoystickZero.Text = "Joystick Zero";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(335, 175);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(35, 13);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "label5";
+            // 
+            // lbljoystickMax
+            // 
+            this.lbljoystickMax.AutoSize = true;
+            this.lbljoystickMax.Location = new System.Drawing.Point(335, 93);
+            this.lbljoystickMax.Name = "lbljoystickMax";
+            this.lbljoystickMax.Size = new System.Drawing.Size(68, 13);
+            this.lbljoystickMax.TabIndex = 10;
+            this.lbljoystickMax.Text = "Joystick Max";
+            // 
+            // lblJoystickPollInterval
+            // 
+            this.lblJoystickPollInterval.AutoSize = true;
+            this.lblJoystickPollInterval.Location = new System.Drawing.Point(45, 175);
+            this.lblJoystickPollInterval.Name = "lblJoystickPollInterval";
+            this.lblJoystickPollInterval.Size = new System.Drawing.Size(103, 13);
+            this.lblJoystickPollInterval.TabIndex = 11;
+            this.lblJoystickPollInterval.Text = "Joystick Poll Interval";
+            // 
+            // Interface
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1088, 701);
+            this.Controls.Add(this.splitContainer1);
+            this.Name = "Interface";
+            this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.Load += new System.EventHandler(this.Form1_Load);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.RadioButton rbtnCam1;
+        private System.Windows.Forms.RadioButton rbtnCam2;
+        private System.Windows.Forms.RadioButton rbtnCam3;
+        private System.Windows.Forms.RadioButton rbtnCam4;
+        private System.Windows.Forms.RadioButton rbtnCam5;
+        private System.Windows.Forms.Button btnStartStream;
+        private System.Windows.Forms.Button btnStopStream;
+        private System.Windows.Forms.Label lblFps;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.HScrollBar drvSpeed;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Label lblJoystickPollInterval;
+        private System.Windows.Forms.Label lbljoystickMax;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblJoystickZero;
+        private System.Windows.Forms.Label lblPort;
+        private System.Windows.Forms.Label lblRoverIp;
+    }
+}
+

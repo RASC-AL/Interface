@@ -5,3 +5,5 @@ Go to Browse and Locate the SharpDX.DirectInput.dll and SharpDX.dll at C:\Progra
 
 Plug in the device before running the code and ensure that Windows automatically installs its drivers successfully. 
 Run the program.
+
+Ref : https://code.google.com/p/sharpdx/source/browse/Samples/DirectInput/JoystickApp/Program.cs?r=c2a5b8e19628866fc4e13df4e18aee701d2e48f1

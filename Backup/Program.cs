@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace RoboOps.Interface
+namespace WinFormCharpWebCam
 {
     static class Program
     {
@@ -13,10 +13,9 @@ namespace RoboOps.Interface
         [STAThread]
         static void Main()
         {
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Interface());
+            Application.Run(new mainWinForm());
         }
     }
 }

@@ -7,60 +7,46 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using SharpDX.DirectInput;
-using Gst;
-using Gst.BasePlugins;
+using MjpegProcessor;
+using RoboOps.HomeClient;
+using System.Threading.Tasks;
+
+
 
 namespace WindowsFormsApplication4
 {
-    public partial class Form1 : Form
+    public partial class Interface : Form
     {
         Joystick joystick;
-         string type;
-         string serial_port;
+        string type;
+        string serial_port;
+        MjpegDecoder _mjpeg;
+        RoverComm comm;
 
-         Pipeline m_Pipeline;
-         Element m_Source, m_Sink;
-
-         Gst.GLib.MainLoop m_GLibMainLoop;
-         System.Threading.Thread m_GLibThread;
-        public Form1()
+        public Interface()
         {
 
             // Create a main loop for GLib, run it in a separate thread
-            m_GLibMainLoop = new Gst.GLib.MainLoop();
-            m_GLibThread = new System.Threading.Thread(m_GLibMainLoop.Run);
-            m_GLibThread.Name = "GLibMainLoop";
-            m_GLibThread.Start();
 
-            System.Threading.Thread.CurrentThread.Name = "WinForms";
-
-            CreatePipeline();
             InitializeComponent();
+            _mjpeg = new MjpegDecoder();
+            _mjpeg.FrameReady += mjpeg_FrameReady;
+            this.comm = new RoverComm(Constants.RoverIP, Constants.RoverPort);
+            initialize_joystick();
+            Task.Factory.StartNew(() => MainForJoystick(lblCoordinates));
+
         }
 
-        private void CreatePipeline()
+        private void mjpeg_FrameReady(object sender, FrameReadyEventArgs e)
         {
-            m_Pipeline = new Pipeline();
-
-            m_Source = Gst.ElementFactory.Make("dshowvideosrc");
-            //m_Source = Gst.ElementFactory.Make("udpsrc");
-             //  m_Source["pattern"] = 18; // Example of setting element properties
-            
-            m_Sink = Gst.ElementFactory.Make("d3dvideosink");
-
-            m_Pipeline.Add(m_Source, m_Sink);
-            m_Source.Link(m_Sink);
+            imgVideo.Image = e.Bitmap;
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
-         void MainForJoystick()
+        void MainForJoystick(Label labelCoordinates)
         {
             // Initialize DirectInput
-           
-            string s ;
+
+            string s;
             var originX = 0;
             var originY = 0;
             var lastStateX = -1;
@@ -92,13 +78,20 @@ namespace WindowsFormsApplication4
                 }
                 if (startFlag && datas.Length == 0 && lastStateX != -1 && lastStateY != -1)
                 {
-                    var slope = 0.0;
-                    if ((lastStateX - originX) == 0)
-                        slope = Math.PI / 2;
-                    else
-                        slope = (lastStateY - originY) / (lastStateX - originX);
-                    theta = (Math.Atan(slope) * 180) / Math.PI;
-                    radius = Math.Sqrt(Math.Pow(originX - lastStateX, 2) + Math.Pow(originY - lastStateY, 2));
+                    if (Math.Max(lastStateX, originX) - Math.Min(lastStateX, originX) >= 256 || Math.Max(lastStateY, originY) - Math.Min(lastStateY, originY) >= 256)
+                    {
+                        originX -= Constants.joystickZeroPose;
+                        originY -= Constants.joystickZeroPose;
+                        var slope = 0.0;
+                        if ((lastStateX - originX) == 0)
+                            slope = Math.PI / 2;
+                        else
+                            slope = (lastStateY - originY) / (lastStateX - originX);
+                        theta = (Math.Atan(slope) * 180) / Math.PI;
+                        radius = Math.Sqrt(Math.Pow(originX - lastStateX, 2) + Math.Pow(originY - lastStateY, 2));
+
+                        Move(originX, originY);
+                    }
                     originX = lastStateX;
                     originY = lastStateY;
                     Console.WriteLine(theta);
@@ -108,10 +101,26 @@ namespace WindowsFormsApplication4
             }
         }
 
+        private void Move(int x, int y)
+        {
+            //Max = 65535 Center between 32767 and 32511  sensititvity 256
+            if (this.lblCoordinates.InvokeRequired)
+            {
+                this.lblCoordinates.BeginInvoke(new MethodInvoker(delegate() { this.lblCoordinates.Text = "X:" + x.ToString() + " Y:" + y.ToString(); }));
+            }
+            else
+            {
+                this.lblCoordinates.Text = "X:" + x.ToString() + " Y:" + y.ToString();
+            }
+        }
+
+
+
         private void button1_Click(object sender, EventArgs e)
         {
             type = "arm";
         }
+
         private void initialize_joystick()
         {
             var directInput = new DirectInput();
@@ -149,7 +158,7 @@ namespace WindowsFormsApplication4
 
             // Acquire the joystick
             joystick.Acquire();
-           
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -204,19 +213,13 @@ namespace WindowsFormsApplication4
 
         private void button9_Click(object sender, EventArgs e)
         {
-            Form2 f2 = new Form2();
+            Settings f2 = new Settings();
             f2.ShowDialog();
         }
 
         private void btnStartStream_Click(object sender, EventArgs e)
         {
-            // Tell d3dvideosink to render into our window.
-            var overlay = new Gst.Interfaces.XOverlayAdapter(m_Sink.Handle);
-            overlay.XwindowId = (ulong)videoPanel.Handle;
-
-            m_Pipeline.SetState(State.Playing);
-
-            m_Pipeline.DebugToDotFile("graph"); // Save pipeline to graph.dot
+            _mjpeg.ParseStream(new Uri("http://128.205.54.5:8080/stream?topic=/camera/image_raw?width=640?height=400"));
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -226,12 +229,12 @@ namespace WindowsFormsApplication4
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            m_GLibMainLoop.Quit();
+
         }
 
         private void btnStopStream_Click(object sender, EventArgs e)
         {
-            m_Pipeline.SetState(State.Ready);
+
         }
     }
 }

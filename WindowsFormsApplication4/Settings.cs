@@ -8,11 +8,11 @@ using System.Text;
 using System.Windows.Forms;
 using SharpDX.DirectInput;
 
-namespace WindowsFormsApplication4
+namespace RoboOps
 {
-    public partial class Form2 : Form
+    public partial class Settings : Form
     {
-        public Form2()
+        public Settings()
         {
             InitializeComponent();
         }
