@@ -8,7 +8,6 @@ F:\Programming\Interface\Interface\WindowsFormsApplication4\bin\Debug\RoboOps.Ho
 F:\Programming\Interface\Interface\WindowsFormsApplication4\bin\Debug\SharpDX.xml
 F:\Programming\Interface\Interface\WindowsFormsApplication4\bin\Debug\SharpDX.DirectInput.xml
 F:\Programming\Interface\Interface\WindowsFormsApplication4\obj\x86\Debug\RoboOps.Interface.csprojResolveAssemblyReference.cache
-F:\Programming\Interface\Interface\WindowsFormsApplication4\obj\x86\Debug\RoboOps.Settings.resources
 F:\Programming\Interface\Interface\WindowsFormsApplication4\obj\x86\Debug\RoboOps.Interface.Interface.resources
 F:\Programming\Interface\Interface\WindowsFormsApplication4\obj\x86\Debug\RoboOps.Interface.Properties.Resources.resources
 F:\Programming\Interface\Interface\WindowsFormsApplication4\obj\x86\Debug\RoboOps.Interface.csproj.GenerateResource.Cache

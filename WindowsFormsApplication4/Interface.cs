@@ -12,7 +12,9 @@ using RoboOps.HomeClient;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Diagnostics;
-
+using System.Net;
+using System.IO;
+using System.Net.Sockets;
 
 
 namespace RoboOps.Interface
@@ -21,41 +23,28 @@ namespace RoboOps.Interface
     {
         Joystick joystick;
         string type;
-        MjpegDecoder _mjpeg;
         RoverComm comm;
         Dictionary<String, CancellationTokenSource> cancelTasks = new Dictionary<String, CancellationTokenSource>();
-        Stopwatch fpsCalculate = new Stopwatch();
         VideoPanel streamPanel;
 
         public Interface()
         {
 
             InitializeComponent();
-            _mjpeg = new MjpegDecoder();  // Initialize the Mjpeg decoder library
-            _mjpeg.FrameReady += mjpeg_FrameReady; // Set the event which will be triggered when frame is received
-
+            
             this.comm = new RoverComm(Constants.RoverIP, Constants.RoverPort);  // Initialize the communication module
 
             MainForJoystick();
 
         }
 
-        private void mjpeg_FrameReady(object sender, FrameReadyEventArgs e)
+        public void SendData(byte[] data)
         {
-            streamPanel.imgVideo.Image = e.Bitmap;
-            var size = e.Bitmap.Size;
-            var newFrameSize = new Size(streamPanel.imgVideo.Size.Width, size.Height * streamPanel.imgVideo.Size.Width / size.Width);
-            if(newFrameSize.Height<=streamPanel.Size.Height) 
-                streamPanel.imgVideo.Size = newFrameSize;
-
-            //Calculate frame rate
-            if (!fpsCalculate.IsRunning)
-                fpsCalculate.Start();
-            else
-            {
-                lblFps.Text = (1000.0d / fpsCalculate.ElapsedMilliseconds).ToString("F") + " fps";
-                fpsCalculate.Restart();
-            }
+            UdpClient client = new UdpClient();
+            var remoteEP = new IPEndPoint(IPAddress.Parse("128.205.54.6"), 8081);
+            //TcpClient client = new TcpClient();
+            client.Connect(remoteEP);
+            client.Send(data,data.Length);
         }
 
   
@@ -265,17 +254,11 @@ namespace RoboOps.Interface
         }
 
 
-        private void button9_Click(object sender, EventArgs e)
-        {
-            Settings f2 = new Settings();
-            f2.ShowDialog();
-        }
 
         private void btnStartStream_Click(object sender, EventArgs e)
         {
-            streamPanel = new VideoPanel();
+            streamPanel = new VideoPanel(comm);
             streamPanel.Show();
-            _mjpeg.ParseStream(new Uri("http://166.149.188.104:8080/stream?topic=/chatter"));
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -294,16 +277,9 @@ namespace RoboOps.Interface
         private void btnStopStream_Click(object sender, EventArgs e)
         {
             streamPanel.Close();
-            _mjpeg.StopStream();
-            fpsCalculate.Reset();
         }
 
-        private void rbtnCam_Click(object sender, EventArgs e)
-        {
-            var rbtnCam = (RadioButton)sender;
-            if(rbtnCam.Checked)
-                comm.ChangeCamera(int.Parse(rbtnCam.Name[rbtnCam.Name.Length - 1].ToString()));
-        }
+        
 
        
     }

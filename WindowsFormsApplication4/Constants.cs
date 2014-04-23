@@ -8,7 +8,7 @@ namespace RoboOps.Interface
     public static class Constants
     {
         //Communication config
-        //public static string RoverIP = "128.205.54.5";
+        //public static string RoverIP = "127.0.0.1";
         public static string RoverIP = "128.205.54.5";
         public static int RoverPort = 5000;
         
