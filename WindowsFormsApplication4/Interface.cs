@@ -38,6 +38,9 @@ namespace RoboOps.Interface
 
         }
 
+
+     
+
         public void SendData(byte[] data)
         {
             UdpClient client = new UdpClient();
@@ -60,7 +63,8 @@ namespace RoboOps.Interface
 
         }
 
-        int baseRotation = 40, baseLift = -20, elbow = 10, yaw = 10; //TODO: Assign initial encoder value
+        int baseRotation = 40, baseLift = 90, elbow = 70, yaw = 105; //TODO: Assign initial encoder value
+        bool scoop = false;
         State lastState = State.Stop;
 
         private enum State 
@@ -131,9 +135,14 @@ namespace RoboOps.Interface
                 elbow -= Constants.baseLiftSensitivity;
                 moveArm = true;
             }
+            if (state.Buttons[0])
+            {
+                scoop = !scoop;
+                moveArm = true;
+            }
 
             if (moveArm)
-                comm.MoveArm(baseRotation, baseLift, elbow, yaw);
+                comm.MoveArm(baseRotation, baseLift, elbow, yaw, scoop?Constants.scoopOpen:Constants.scoopClose);
         }
 
         private void DriveMotors(JoystickState state)
@@ -259,6 +268,7 @@ namespace RoboOps.Interface
         {
             streamPanel = new VideoPanel(comm);
             streamPanel.Show();
+
         }
 
         private void Form1_Load(object sender, EventArgs e)

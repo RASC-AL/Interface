@@ -10,6 +10,10 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+using System.Net.Sockets;
+using System.Net;
+
+
 namespace RoboOps.Interface
 {
     public partial class VideoPanel : Form
@@ -27,12 +31,27 @@ namespace RoboOps.Interface
             _mjpeg.FrameReady += mjpeg_FrameReady; // Set the event which will be triggered when frame is received
 
             _mjpeg.ParseStream(new Uri("http://128.205.54.5:8080/stream?topic=/chatter"));
+            
+            ///////////////////////////////////
+
+          
 
         }
 
+        /// <summary>
+        /// /////////////////
+        /// </summary>
+        /// 
+      
+
+        
+        /////////////////////
         public int fps = 30;
         public int width = 1024;
         public int height = 1024;
+        public int pan = 0;
+        public int tilt = 0;
+        public int zoom = 0;
 
 
         private void mjpeg_FrameReady(object sender, FrameReadyEventArgs e)
@@ -102,5 +121,24 @@ namespace RoboOps.Interface
         {
             comm.ChangeCamera(currentCam, fps, width, height);
         }
+
+        private void barTilt_ValueChanged(object sender, EventArgs e)
+        {
+            tilt = ((TrackBar)sender).Value;
+            lblTilt.Text = "T: " + tilt.ToString();
+        }
+
+        private void barZoom_Scroll(object sender, EventArgs e)
+        {
+            zoom = ((TrackBar)sender).Value;
+            lblZoom.Text = "Z: " + zoom.ToString();
+        }
+
+        private void barPan_ValueChanged(object sender, EventArgs e)
+        {
+            pan = ((TrackBar)sender).Value;
+            lblPan.Text = "P: " + pan.ToString();
+        }
+
     }
 }

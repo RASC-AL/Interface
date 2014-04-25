@@ -23,21 +23,24 @@ namespace RoboOps.Interface
         public static int fwdSpeed = 20;
 
         //Arm constants
-        public static int baseMinRotation = -100;
-        public static int baseMaxRotation = 120;
+        public static int baseMinRotation = 5;
+        public static int baseMaxRotation = 85;
         public static int baseRotationSensitivity = 5;
 
-        public static int baseMinLift = 0;
-        public static int baseMaxLift = 90;
+        public static int baseMinLift = 90;
+        public static int baseMaxLift = 150;
         public static int baseLiftSensitivity = 5;
 
-        public static int elbowMinLift = 0;
-        public static int elbowMaxLift = 90;
+        public static int elbowMinLift = 30;
+        public static int elbowMaxLift = 130;
         public static int elbowSensitivity = 5;
 
-        public static int yawMin = 0;
-        public static int yawMax = 90;
-        public static int yawSensitivity = 1;
+        public static int yawMin = 5;
+        public static int yawMax = 175;
+        public static int yawSensitivity = 15;
+
+        public static string scoopOpen = "70";
+        public static string scoopClose = "40";
         
     }
 }
