@@ -53,14 +53,27 @@ namespace RoboOps.Interface
   
         void MainForJoystick()
         {
-            initialize_joystick();
+            bool controllerFound = true;
+            try
+            {
+                initialize_joystick();
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == "controllerNotFound")
+                {
+                    controllerFound = false;
+                    lblError.Text = "Could not find controller. Please connect it and restart the application.\nIf problem persists, contact Bill!";
+                }
+            }
+            if (controllerFound)
+            {
+                System.Windows.Forms.Timer pollTimer = new System.Windows.Forms.Timer();
+                pollTimer.Tick += pollJoystick;
+                pollTimer.Interval = Constants.joystickTimeSensitivity;
 
-            System.Windows.Forms.Timer pollTimer = new System.Windows.Forms.Timer();
-            pollTimer.Tick += pollJoystick;
-            pollTimer.Interval = Constants.joystickTimeSensitivity;
-
-            pollTimer.Start();
-
+                pollTimer.Start();
+            }
         }
 
         int baseRotation = 40, baseLift = 90, elbow = 70, yaw = 105; //TODO: Assign initial encoder value
@@ -241,8 +254,7 @@ namespace RoboOps.Interface
             if (joystickGuid == Guid.Empty)
             {
                 Console.WriteLine("No joystick/Gamepad found.");
-                Console.ReadKey();
-                Environment.Exit(1);
+                throw new Exception("controllerNotFound");
             }
             // Instantiate the joystick
             joystick = new Joystick(directInput, joystickGuid);

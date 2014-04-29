@@ -160,6 +160,7 @@
             this.btnApply.TabIndex = 27;
             this.btnApply.Text = "Apply";
             this.btnApply.UseVisualStyleBackColor = true;
+            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
             this.btnApply.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnApply_MouseClick);
             // 
             // rbtnCam2
@@ -227,40 +228,35 @@
             // barPan
             // 
             this.barPan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.barPan.LargeChange = 128;
             this.barPan.Location = new System.Drawing.Point(751, 326);
-            this.barPan.Maximum = 1024;
-            this.barPan.Minimum = 1;
+            this.barPan.Maximum = 359;
             this.barPan.Name = "barPan";
             this.barPan.Size = new System.Drawing.Size(104, 45);
             this.barPan.TabIndex = 33;
-            this.barPan.Value = 1024;
             this.barPan.ValueChanged += new System.EventHandler(this.barPan_ValueChanged);
             // 
             // barTilt
             // 
             this.barTilt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.barTilt.LargeChange = 128;
             this.barTilt.Location = new System.Drawing.Point(751, 366);
-            this.barTilt.Maximum = 1024;
-            this.barTilt.Minimum = 1;
+            this.barTilt.Maximum = 360;
+            this.barTilt.Minimum = 180;
             this.barTilt.Name = "barTilt";
             this.barTilt.Size = new System.Drawing.Size(104, 45);
             this.barTilt.TabIndex = 34;
-            this.barTilt.Value = 1024;
+            this.barTilt.Value = 180;
             this.barTilt.ValueChanged += new System.EventHandler(this.barTilt_ValueChanged);
             // 
             // barZoom
             // 
             this.barZoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.barZoom.LargeChange = 128;
+            this.barZoom.LargeChange = 1000;
             this.barZoom.Location = new System.Drawing.Point(751, 408);
-            this.barZoom.Maximum = 1024;
-            this.barZoom.Minimum = 1;
+            this.barZoom.Maximum = 10000;
             this.barZoom.Name = "barZoom";
             this.barZoom.Size = new System.Drawing.Size(104, 45);
+            this.barZoom.SmallChange = 10;
             this.barZoom.TabIndex = 35;
-            this.barZoom.Value = 1024;
             this.barZoom.Scroll += new System.EventHandler(this.barZoom_Scroll);
             // 
             // lblPan
@@ -320,6 +316,7 @@
             this.Name = "VideoPanel";
             this.Text = "VideoPanel";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VideoPanel_FormClosing);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.VideoPanel_KeyPress);
             ((System.ComponentModel.ISupportInitialize)(this.imgVideo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barFps)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barWidth)).EndInit();

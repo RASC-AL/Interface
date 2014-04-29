@@ -76,6 +76,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.drvSpeed = new System.Windows.Forms.HScrollBar();
+            this.lblError = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -117,6 +118,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.lblError);
             this.splitContainer1.Panel2.Controls.Add(this.label1);
             this.splitContainer1.Panel2.Controls.Add(this.drvSpeed);
             this.splitContainer1.Panel2.Controls.Add(this.btnStopStream);
@@ -518,6 +520,15 @@
             this.drvSpeed.TabIndex = 21;
             this.drvSpeed.Value = 50;
             // 
+            // lblError
+            // 
+            this.lblError.AutoSize = true;
+            this.lblError.ForeColor = System.Drawing.Color.Red;
+            this.lblError.Location = new System.Drawing.Point(33, 15);
+            this.lblError.Name = "lblError";
+            this.lblError.Size = new System.Drawing.Size(0, 13);
+            this.lblError.TabIndex = 23;
+            // 
             // Interface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -592,6 +603,7 @@
         private System.Windows.Forms.TextBox textBox13;
         private System.Windows.Forms.Label lblMinYaw;
         private System.Windows.Forms.TextBox textBox14;
+        private System.Windows.Forms.Label lblError;
     }
 }
 

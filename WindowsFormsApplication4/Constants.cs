@@ -19,8 +19,8 @@ namespace RoboOps.Interface
         public static int joystickSensitivity = 15512;
 
         //Drive config
-        public static int turnSpeed = 10;
-        public static int fwdSpeed = 20;
+        public static int turnSpeed = 100;
+        public static int fwdSpeed = 50;
 
         //Arm constants
         public static int baseMinRotation = 5;

@@ -31,10 +31,6 @@ namespace RoboOps.Interface
             _mjpeg.FrameReady += mjpeg_FrameReady; // Set the event which will be triggered when frame is received
 
             _mjpeg.ParseStream(new Uri("http://128.205.54.5:8080/stream?topic=/chatter"));
-            
-            ///////////////////////////////////
-
-          
 
         }
 
@@ -119,7 +115,7 @@ namespace RoboOps.Interface
 
         private void btnApply_MouseClick(object sender, MouseEventArgs e)
         {
-            comm.ChangeCamera(currentCam, fps, width, height);
+            //comm.ChangeCamera(currentCam, fps, width, height);
         }
 
         private void barTilt_ValueChanged(object sender, EventArgs e)
@@ -138,6 +134,21 @@ namespace RoboOps.Interface
         {
             pan = ((TrackBar)sender).Value;
             lblPan.Text = "P: " + pan.ToString();
+        }
+
+        private void VideoPanel_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
+
+        private void btnApply_Click(object sender, EventArgs e)
+        {
+            comm.ChangeCamera(currentCam, fps, width, height);
+            int focus = 10;
+            int brightness = 5;
+            int iris = 10;
+            bool autofocus = true;
+            comm.PTZ(pan, tilt, zoom,focus ,brightness,iris, autofocus );
         }
 
     }
