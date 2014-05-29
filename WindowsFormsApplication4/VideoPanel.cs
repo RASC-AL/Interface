@@ -12,6 +12,7 @@ using System.Windows.Forms;
 
 using System.Net.Sockets;
 using System.Net;
+using System.Threading.Tasks;
 
 
 namespace RoboOps.Interface
@@ -30,15 +31,14 @@ namespace RoboOps.Interface
             _mjpeg = new MjpegDecoder();  // Initialize the Mjpeg decoder library
             _mjpeg.FrameReady += mjpeg_FrameReady; // Set the event which will be triggered when frame is received
 
-            _mjpeg.ParseStream(new Uri("http://128.205.54.5:8080/stream?topic=/chatter"));
+            //_mjpeg.ParseStream(new Uri("http://128.205.54.5:8080/stream?topic=/chatter"));
+            _mjpeg.ParseStream(new Uri("http://166.143.214.142:8080/stream?topic=/chatter"));
+
+            //Task t1 = new Task(UDPServer, "UDPStream");
+
+            //Task UdpServerTask = Task.Factory.StartNew(UDPServer);
 
         }
-
-        /// <summary>
-        /// /////////////////
-        /// </summary>
-        /// 
-      
 
         
         /////////////////////
@@ -55,7 +55,7 @@ namespace RoboOps.Interface
             imgVideo.Image = e.Bitmap;
 
             ImageConverter img = new ImageConverter();
-            byte[] bytes = (byte[])img.ConvertTo(e.Bitmap, typeof(byte[]));
+            //byte[] bytes = (byte[])img.ConvertTo(e.Bitmap, typeof(byte[]));
             //ImageListStreamer
             //SendData(bytes);
             var size = e.Bitmap.Size;
@@ -149,6 +149,57 @@ namespace RoboOps.Interface
             int iris = 10;
             bool autofocus = true;
             comm.PTZ(pan, tilt, zoom,focus ,brightness,iris, autofocus );
+        }
+
+        public void UDPServer()
+        {
+            byte[] data = new byte[64000];
+            IPEndPoint ipep = new IPEndPoint(IPAddress.Any, 30000);
+            UdpClient newsock = new UdpClient(ipep);
+
+            Console.WriteLine("Waiting for a client...");
+
+            IPEndPoint sender = new IPEndPoint(IPAddress.Any, 0);
+
+            while (true)
+            {
+                try
+                {
+                    data = newsock.Receive(ref sender);
+
+                    Console.WriteLine("\nMessage received from {0}:", sender.ToString());
+                    //Console.WriteLine(Encoding.ASCII.GetString(data, 0, data.Length));
+
+                    var header = data.Take(16).ToArray();
+                    long chunk = BitConverter.ToInt64(header.Reverse().ToArray(), 0);
+                    long frame = BitConverter.ToInt64(header.Reverse().ToArray(), 8);
+                    String s = Encoding.ASCII.GetString(data, 16, 20);
+                    //String s = BitConverter.ToString(data, 16,20);
+
+                    Console.WriteLine("\nheader: " + frame.ToString() + " chunk: " + chunk.ToString() + " string: " + s + "\n");
+                    Console.WriteLine("data: " + BitConverter.ToString(data, 0, 40) + "\n");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.StackTrace);
+                }
+            }
+                //string welcome = "Welcome to my test server";
+            //data = Encoding.ASCII.GetBytes(welcome);
+            //newsock.Send(data, data.Length, sender);
+
+            //while (true)
+            //{
+            //    data = newsock.Receive(ref sender);
+
+            //    Console.WriteLine(Encoding.ASCII.GetString(data, 0, data.Length));
+            //    //newsock.Send(data, data.Length, sender);
+            //}
+        }
+
+        private void btnChangeCam_Click(object sender, EventArgs e)
+        {
+            comm.ChangeCameras(txtCam0.Text+','+txtCam1.Text+','+txtCam2.Text+','+txtCam3.Text);
         }
 
     }

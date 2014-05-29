@@ -24,7 +24,7 @@ namespace RoboOps.Interface
         Joystick joystick;
         string type;
         RoverComm comm;
-        Dictionary<String, CancellationTokenSource> cancelTasks = new Dictionary<String, CancellationTokenSource>();
+        
         VideoPanel streamPanel;
 
         public Interface()
@@ -76,7 +76,7 @@ namespace RoboOps.Interface
             }
         }
 
-        int baseRotation = 40, baseLift = 90, elbow = 70, yaw = 105; //TODO: Assign initial encoder value
+        int baseRotation = 144, baseLift = 90, elbow = 130, yaw = 175; //TODO: Assign initial encoder value
         bool scoop = false;
         State lastState = State.Stop;
 
@@ -130,22 +130,22 @@ namespace RoboOps.Interface
             //Elbow and yaw control
             if (state.RotationX <= Constants.joystickSensitivity && yaw > Constants.yawMin)
             {
-                yaw -= Constants.baseRotationSensitivity;
+                yaw -= Constants.yawSensitivity;
                 moveArm = true;
             }
             if (state.RotationX >= Constants.joystickMaxPose - Constants.joystickSensitivity && yaw < Constants.yawMax)
             {
-                yaw += Constants.baseRotationSensitivity;
+                yaw += Constants.yawSensitivity;
                 moveArm = true;
             }
             if (state.RotationY <= Constants.joystickSensitivity && elbow < Constants.elbowMaxLift)
             {
-                elbow += Constants.baseLiftSensitivity;
+                elbow += Constants.elbowSensitivity;
                 moveArm = true;
             }
             if (state.RotationY >= Constants.joystickMaxPose - Constants.joystickSensitivity && elbow > Constants.elbowMinLift)
             {
-                elbow -= Constants.baseLiftSensitivity;
+                elbow -= Constants.elbowSensitivity;
                 moveArm = true;
             }
             if (state.Buttons[0])
@@ -155,7 +155,16 @@ namespace RoboOps.Interface
             }
 
             if (moveArm)
-                comm.MoveArm(baseRotation, baseLift, elbow, yaw, scoop?Constants.scoopOpen:Constants.scoopClose);
+            {
+                lblBase.Text = "Base: " + baseRotation.ToString();
+                lblShoulder.Text = "Shoulder: " + baseLift.ToString();
+                lblElbow.Text = "Elbow: " + elbow.ToString();
+                lblWrist.Text = "Wrist: " + yaw.ToString();
+                lblScoop.Text = "Scoop: " + scoop.ToString();
+                comm.MoveArm(baseRotation, baseLift, elbow, yaw, scoop ? Constants.scoopOpen : Constants.scoopClose);
+            }
+            
+
         }
 
         private void DriveMotors(JoystickState state)
@@ -206,26 +215,36 @@ namespace RoboOps.Interface
 
         private void MoveLeft()
         {
+            lblLeft.Text = "Left speed\n" + (-Constants.turnSpeed * drvSpeed.Value / 100).ToString();
+            lblRight.Text = "Right speed\n" + (Constants.turnSpeed * drvSpeed.Value / 100).ToString();
             comm.MoveRover(-Constants.turnSpeed * drvSpeed.Value / 100, Constants.turnSpeed * drvSpeed.Value / 100);
         }
 
         private void MoveRight()
         {
+            lblLeft.Text = "Left speed\n" + (Constants.turnSpeed * drvSpeed.Value / 100).ToString();
+            lblRight.Text = "Right speed\n" + (-Constants.turnSpeed * drvSpeed.Value / 100).ToString();
             comm.MoveRover(Constants.turnSpeed * drvSpeed.Value / 100, -Constants.turnSpeed * drvSpeed.Value / 100);
         }
 
         private void MoveFwd()
         {
+            lblLeft.Text = "Left speed\n" + (Constants.fwdSpeed * drvSpeed.Value / 100).ToString();
+            lblRight.Text = "Right speed\n" + (Constants.fwdSpeed * drvSpeed.Value / 100).ToString();
             comm.MoveRover(Constants.fwdSpeed * drvSpeed.Value / 100, Constants.fwdSpeed * drvSpeed.Value / 100);
         }
 
         private void MoveBack()
         {
+            lblLeft.Text = "Left speed\n" + (-Constants.turnSpeed * drvSpeed.Value / 100).ToString();
+            lblRight.Text = "Right speed\n" + (-Constants.turnSpeed * drvSpeed.Value / 100).ToString();
             comm.MoveRover(-Constants.turnSpeed * drvSpeed.Value / 100, -Constants.turnSpeed * drvSpeed.Value / 100);
         }
         
         private void Stop()
         {
+            lblLeft.Text = "Left speed\n" + (0).ToString();
+            lblRight.Text = "Right speed\n" + (0).ToString();
             comm.MoveRover(0, 0);
         }
 
@@ -301,8 +320,10 @@ namespace RoboOps.Interface
             streamPanel.Close();
         }
 
-        
+        private void CheckedChanged(object sender, EventArgs e)
+        {
+            comm.ChangeRelay(chkRaiseMast.Checked, chkArm.Checked);
+        }
 
-       
     }
 }

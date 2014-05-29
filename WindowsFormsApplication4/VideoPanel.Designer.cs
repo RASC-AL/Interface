@@ -48,6 +48,12 @@
             this.lblPan = new System.Windows.Forms.Label();
             this.lblTilt = new System.Windows.Forms.Label();
             this.lblZoom = new System.Windows.Forms.Label();
+            this.txtCam0 = new System.Windows.Forms.TextBox();
+            this.txtCam1 = new System.Windows.Forms.TextBox();
+            this.txtCam2 = new System.Windows.Forms.TextBox();
+            this.txtCam3 = new System.Windows.Forms.TextBox();
+            this.rbtnCam6 = new System.Windows.Forms.RadioButton();
+            this.btnChangeCam = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.imgVideo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barFps)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barWidth)).BeginInit();
@@ -65,7 +71,7 @@
             this.imgVideo.Cursor = System.Windows.Forms.Cursors.Default;
             this.imgVideo.Location = new System.Drawing.Point(0, 0);
             this.imgVideo.Name = "imgVideo";
-            this.imgVideo.Size = new System.Drawing.Size(696, 536);
+            this.imgVideo.Size = new System.Drawing.Size(664, 536);
             this.imgVideo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.imgVideo.TabIndex = 0;
             this.imgVideo.TabStop = false;
@@ -107,7 +113,7 @@
             // 
             this.barWidth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.barWidth.LargeChange = 128;
-            this.barWidth.Location = new System.Drawing.Point(750, 207);
+            this.barWidth.Location = new System.Drawing.Point(750, 248);
             this.barWidth.Maximum = 1024;
             this.barWidth.Minimum = 1;
             this.barWidth.Name = "barWidth";
@@ -121,7 +127,7 @@
             // 
             this.barHeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.barHeight.LargeChange = 128;
-            this.barHeight.Location = new System.Drawing.Point(816, 207);
+            this.barHeight.Location = new System.Drawing.Point(816, 248);
             this.barHeight.Maximum = 1024;
             this.barHeight.Minimum = 1;
             this.barHeight.Name = "barHeight";
@@ -135,7 +141,7 @@
             // 
             this.lblWidth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblWidth.AutoSize = true;
-            this.lblWidth.Location = new System.Drawing.Point(748, 188);
+            this.lblWidth.Location = new System.Drawing.Point(748, 229);
             this.lblWidth.Name = "lblWidth";
             this.lblWidth.Size = new System.Drawing.Size(24, 13);
             this.lblWidth.TabIndex = 25;
@@ -145,7 +151,7 @@
             // 
             this.lblHeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblHeight.AutoSize = true;
-            this.lblHeight.Location = new System.Drawing.Point(817, 188);
+            this.lblHeight.Location = new System.Drawing.Point(817, 229);
             this.lblHeight.Name = "lblHeight";
             this.lblHeight.Size = new System.Drawing.Size(21, 13);
             this.lblHeight.TabIndex = 26;
@@ -154,12 +160,13 @@
             // btnApply
             // 
             this.btnApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnApply.Location = new System.Drawing.Point(749, 459);
+            this.btnApply.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(153)))));
+            this.btnApply.Location = new System.Drawing.Point(749, 500);
             this.btnApply.Name = "btnApply";
             this.btnApply.Size = new System.Drawing.Size(75, 23);
             this.btnApply.TabIndex = 27;
             this.btnApply.Text = "Apply";
-            this.btnApply.UseVisualStyleBackColor = true;
+            this.btnApply.UseVisualStyleBackColor = false;
             this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
             this.btnApply.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnApply_MouseClick);
             // 
@@ -167,11 +174,11 @@
             // 
             this.rbtnCam2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbtnCam2.AutoSize = true;
-            this.rbtnCam2.Location = new System.Drawing.Point(724, 77);
+            this.rbtnCam2.Location = new System.Drawing.Point(724, 58);
             this.rbtnCam2.Name = "rbtnCam2";
             this.rbtnCam2.Size = new System.Drawing.Size(70, 17);
             this.rbtnCam2.TabIndex = 29;
-            this.rbtnCam2.Text = "Camera 2";
+            this.rbtnCam2.Text = "Camera 1";
             this.rbtnCam2.UseVisualStyleBackColor = true;
             this.rbtnCam2.CheckedChanged += new System.EventHandler(this.rbtnCam_Click);
             // 
@@ -180,12 +187,12 @@
             this.rbtnCam1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbtnCam1.AutoSize = true;
             this.rbtnCam1.Checked = true;
-            this.rbtnCam1.Location = new System.Drawing.Point(724, 53);
+            this.rbtnCam1.Location = new System.Drawing.Point(724, 34);
             this.rbtnCam1.Name = "rbtnCam1";
             this.rbtnCam1.Size = new System.Drawing.Size(70, 17);
             this.rbtnCam1.TabIndex = 28;
             this.rbtnCam1.TabStop = true;
-            this.rbtnCam1.Text = "Camera 1";
+            this.rbtnCam1.Text = "Camera 0";
             this.rbtnCam1.UseVisualStyleBackColor = true;
             this.rbtnCam1.CheckedChanged += new System.EventHandler(this.rbtnCam_Click);
             // 
@@ -193,11 +200,11 @@
             // 
             this.rbtnCam3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbtnCam3.AutoSize = true;
-            this.rbtnCam3.Location = new System.Drawing.Point(724, 101);
+            this.rbtnCam3.Location = new System.Drawing.Point(724, 82);
             this.rbtnCam3.Name = "rbtnCam3";
             this.rbtnCam3.Size = new System.Drawing.Size(70, 17);
             this.rbtnCam3.TabIndex = 30;
-            this.rbtnCam3.Text = "Camera 3";
+            this.rbtnCam3.Text = "Camera 2";
             this.rbtnCam3.UseVisualStyleBackColor = true;
             this.rbtnCam3.CheckedChanged += new System.EventHandler(this.rbtnCam_Click);
             // 
@@ -205,11 +212,11 @@
             // 
             this.rbtnCam4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbtnCam4.AutoSize = true;
-            this.rbtnCam4.Location = new System.Drawing.Point(724, 127);
+            this.rbtnCam4.Location = new System.Drawing.Point(724, 108);
             this.rbtnCam4.Name = "rbtnCam4";
             this.rbtnCam4.Size = new System.Drawing.Size(70, 17);
             this.rbtnCam4.TabIndex = 31;
-            this.rbtnCam4.Text = "Camera 4";
+            this.rbtnCam4.Text = "Camera 3";
             this.rbtnCam4.UseVisualStyleBackColor = true;
             this.rbtnCam4.CheckedChanged += new System.EventHandler(this.rbtnCam_Click);
             // 
@@ -217,18 +224,18 @@
             // 
             this.rbtnCam5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbtnCam5.AutoSize = true;
-            this.rbtnCam5.Location = new System.Drawing.Point(724, 149);
+            this.rbtnCam5.Location = new System.Drawing.Point(724, 130);
             this.rbtnCam5.Name = "rbtnCam5";
             this.rbtnCam5.Size = new System.Drawing.Size(70, 17);
             this.rbtnCam5.TabIndex = 32;
-            this.rbtnCam5.Text = "Camera 5";
+            this.rbtnCam5.Text = "Camera 4";
             this.rbtnCam5.UseVisualStyleBackColor = true;
             this.rbtnCam5.CheckedChanged += new System.EventHandler(this.rbtnCam_Click);
             // 
             // barPan
             // 
             this.barPan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.barPan.Location = new System.Drawing.Point(751, 326);
+            this.barPan.Location = new System.Drawing.Point(751, 367);
             this.barPan.Maximum = 359;
             this.barPan.Name = "barPan";
             this.barPan.Size = new System.Drawing.Size(104, 45);
@@ -238,7 +245,7 @@
             // barTilt
             // 
             this.barTilt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.barTilt.Location = new System.Drawing.Point(751, 366);
+            this.barTilt.Location = new System.Drawing.Point(751, 407);
             this.barTilt.Maximum = 360;
             this.barTilt.Minimum = 180;
             this.barTilt.Name = "barTilt";
@@ -251,7 +258,7 @@
             // 
             this.barZoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.barZoom.LargeChange = 1000;
-            this.barZoom.Location = new System.Drawing.Point(751, 408);
+            this.barZoom.Location = new System.Drawing.Point(751, 449);
             this.barZoom.Maximum = 10000;
             this.barZoom.Name = "barZoom";
             this.barZoom.Size = new System.Drawing.Size(104, 45);
@@ -263,7 +270,7 @@
             // 
             this.lblPan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblPan.AutoSize = true;
-            this.lblPan.Location = new System.Drawing.Point(702, 326);
+            this.lblPan.Location = new System.Drawing.Point(702, 367);
             this.lblPan.Name = "lblPan";
             this.lblPan.Size = new System.Drawing.Size(20, 13);
             this.lblPan.TabIndex = 36;
@@ -273,7 +280,7 @@
             // 
             this.lblTilt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTilt.AutoSize = true;
-            this.lblTilt.Location = new System.Drawing.Point(702, 366);
+            this.lblTilt.Location = new System.Drawing.Point(702, 407);
             this.lblTilt.Name = "lblTilt";
             this.lblTilt.Size = new System.Drawing.Size(20, 13);
             this.lblTilt.TabIndex = 37;
@@ -283,16 +290,80 @@
             // 
             this.lblZoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblZoom.AutoSize = true;
-            this.lblZoom.Location = new System.Drawing.Point(702, 408);
+            this.lblZoom.Location = new System.Drawing.Point(702, 449);
             this.lblZoom.Name = "lblZoom";
             this.lblZoom.Size = new System.Drawing.Size(20, 13);
             this.lblZoom.TabIndex = 38;
             this.lblZoom.Text = "Z: ";
             // 
+            // txtCam0
+            // 
+            this.txtCam0.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCam0.Location = new System.Drawing.Point(693, 34);
+            this.txtCam0.Name = "txtCam0";
+            this.txtCam0.Size = new System.Drawing.Size(20, 20);
+            this.txtCam0.TabIndex = 39;
+            // 
+            // txtCam1
+            // 
+            this.txtCam1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCam1.Location = new System.Drawing.Point(693, 58);
+            this.txtCam1.Name = "txtCam1";
+            this.txtCam1.Size = new System.Drawing.Size(20, 20);
+            this.txtCam1.TabIndex = 40;
+            // 
+            // txtCam2
+            // 
+            this.txtCam2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCam2.Location = new System.Drawing.Point(693, 82);
+            this.txtCam2.Name = "txtCam2";
+            this.txtCam2.Size = new System.Drawing.Size(20, 20);
+            this.txtCam2.TabIndex = 41;
+            // 
+            // txtCam3
+            // 
+            this.txtCam3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCam3.Location = new System.Drawing.Point(693, 108);
+            this.txtCam3.Name = "txtCam3";
+            this.txtCam3.Size = new System.Drawing.Size(20, 20);
+            this.txtCam3.TabIndex = 42;
+            // 
+            // rbtnCam6
+            // 
+            this.rbtnCam6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.rbtnCam6.AutoSize = true;
+            this.rbtnCam6.Location = new System.Drawing.Point(724, 154);
+            this.rbtnCam6.Name = "rbtnCam6";
+            this.rbtnCam6.Size = new System.Drawing.Size(70, 17);
+            this.rbtnCam6.TabIndex = 43;
+            this.rbtnCam6.Text = "Camera 5";
+            this.rbtnCam6.UseVisualStyleBackColor = true;
+            this.rbtnCam6.CheckedChanged += new System.EventHandler(this.rbtnCam_Click);
+            // 
+            // btnChangeCam
+            // 
+            this.btnChangeCam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnChangeCam.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(153)))));
+            this.btnChangeCam.ForeColor = System.Drawing.Color.White;
+            this.btnChangeCam.Location = new System.Drawing.Point(690, 178);
+            this.btnChangeCam.Name = "btnChangeCam";
+            this.btnChangeCam.Size = new System.Drawing.Size(104, 23);
+            this.btnChangeCam.TabIndex = 44;
+            this.btnChangeCam.Text = "Change camera";
+            this.btnChangeCam.UseVisualStyleBackColor = false;
+            this.btnChangeCam.Click += new System.EventHandler(this.btnChangeCam_Click);
+            // 
             // VideoPanel
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(153)))));
             this.ClientSize = new System.Drawing.Size(878, 536);
+            this.Controls.Add(this.btnChangeCam);
+            this.Controls.Add(this.rbtnCam6);
+            this.Controls.Add(this.txtCam3);
+            this.Controls.Add(this.txtCam2);
+            this.Controls.Add(this.txtCam1);
+            this.Controls.Add(this.txtCam0);
             this.Controls.Add(this.lblZoom);
             this.Controls.Add(this.lblTilt);
             this.Controls.Add(this.lblPan);
@@ -313,6 +384,7 @@
             this.Controls.Add(this.barFps);
             this.Controls.Add(this.lblFps);
             this.Controls.Add(this.imgVideo);
+            this.ForeColor = System.Drawing.Color.Cornsilk;
             this.Name = "VideoPanel";
             this.Text = "VideoPanel";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VideoPanel_FormClosing);
@@ -351,6 +423,12 @@
         private System.Windows.Forms.Label lblPan;
         private System.Windows.Forms.Label lblTilt;
         private System.Windows.Forms.Label lblZoom;
+        private System.Windows.Forms.TextBox txtCam0;
+        private System.Windows.Forms.TextBox txtCam1;
+        private System.Windows.Forms.TextBox txtCam2;
+        private System.Windows.Forms.TextBox txtCam3;
+        private System.Windows.Forms.RadioButton rbtnCam6;
+        private System.Windows.Forms.Button btnChangeCam;
 
 
 
