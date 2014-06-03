@@ -38,19 +38,6 @@ namespace RoboOps.Interface
 
         }
 
-
-     
-
-        public void SendData(byte[] data)
-        {
-            UdpClient client = new UdpClient();
-            var remoteEP = new IPEndPoint(IPAddress.Parse("128.205.54.6"), 8081);
-            //TcpClient client = new TcpClient();
-            client.Connect(remoteEP);
-            client.Send(data,data.Length);
-        }
-
-  
         void MainForJoystick()
         {
             bool controllerFound = true;
@@ -76,7 +63,7 @@ namespace RoboOps.Interface
             }
         }
 
-        int baseRotation = 144, baseLift = 90, elbow = 130, yaw = 175; //TODO: Assign initial encoder value
+        int baseRotation = 144, baseLift = 90, elbow = 130, yaw = 30; //TODO: Assign initial encoder value
         bool scoop = false;
         State lastState = State.Stop;
 
@@ -106,14 +93,14 @@ namespace RoboOps.Interface
         {
             //Base control
             bool moveArm = false;
-            if (state.X <= Constants.joystickSensitivity && baseRotation > Constants.baseMinRotation)
-            {
-                baseRotation -= Constants.baseRotationSensitivity;
-                moveArm = true;
-            }
-            if (state.X >= Constants.joystickMaxPose - Constants.joystickSensitivity && baseRotation < Constants.baseMaxRotation)
+            if (state.X <= Constants.joystickSensitivity && baseRotation < Constants.baseMaxRotation)
             {
                 baseRotation += Constants.baseRotationSensitivity;
+                moveArm = true;
+            }
+            if (state.X >= Constants.joystickMaxPose - Constants.joystickSensitivity && baseRotation > Constants.baseMinRotation)
+            {
+                baseRotation -= Constants.baseRotationSensitivity;
                 moveArm = true;
             }
             if (state.Y <= Constants.joystickSensitivity && baseLift < Constants.baseMaxLift)
@@ -138,14 +125,14 @@ namespace RoboOps.Interface
                 yaw += Constants.yawSensitivity;
                 moveArm = true;
             }
-            if (state.RotationY <= Constants.joystickSensitivity && elbow < Constants.elbowMaxLift)
-            {
-                elbow += Constants.elbowSensitivity;
-                moveArm = true;
-            }
-            if (state.RotationY >= Constants.joystickMaxPose - Constants.joystickSensitivity && elbow > Constants.elbowMinLift)
+            if (state.RotationY <= Constants.joystickSensitivity && elbow > Constants.elbowMinLift)
             {
                 elbow -= Constants.elbowSensitivity;
+                moveArm = true;
+            }
+            if (state.RotationY >= Constants.joystickMaxPose - Constants.joystickSensitivity && elbow < Constants.elbowMaxLift)
+            {
+                elbow += Constants.elbowSensitivity;
                 moveArm = true;
             }
             if (state.Buttons[0])
@@ -323,6 +310,16 @@ namespace RoboOps.Interface
         private void CheckedChanged(object sender, EventArgs e)
         {
             comm.ChangeRelay(chkRaiseMast.Checked, chkArm.Checked);
+        }
+
+        private void btnArmHome_Click(object sender, EventArgs e)
+        {
+            comm.send("ARM HOME");
+        }
+
+        private void btnRead_Click(object sender, EventArgs e)
+        {
+            label6.Text = comm.reading();
         }
 
     }

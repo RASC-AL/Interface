@@ -79,7 +79,6 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.lblFwdSpeed = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.btnRead = new System.Windows.Forms.Button();
             this.btnArmHome = new System.Windows.Forms.Button();
             this.chkArm = new System.Windows.Forms.CheckBox();
             this.chkRaiseMast = new System.Windows.Forms.CheckBox();
@@ -94,7 +93,7 @@
             this.lblError = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.drvSpeed = new System.Windows.Forms.HScrollBar();
-            this.label6 = new System.Windows.Forms.Label();
+            this.btnRead = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -140,7 +139,6 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(153)))));
-            this.splitContainer1.Panel2.Controls.Add(this.label6);
             this.splitContainer1.Panel2.Controls.Add(this.btnRead);
             this.splitContainer1.Panel2.Controls.Add(this.btnArmHome);
             this.splitContainer1.Panel2.Controls.Add(this.chkArm);
@@ -617,17 +615,6 @@
             this.textBox1.Size = new System.Drawing.Size(126, 20);
             this.textBox1.TabIndex = 1;
             // 
-            // btnRead
-            // 
-            this.btnRead.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(153)))));
-            this.btnRead.Location = new System.Drawing.Point(228, 399);
-            this.btnRead.Name = "btnRead";
-            this.btnRead.Size = new System.Drawing.Size(93, 23);
-            this.btnRead.TabIndex = 41;
-            this.btnRead.Text = "Get Readings";
-            this.btnRead.UseVisualStyleBackColor = false;
-            this.btnRead.Click += new System.EventHandler(this.btnRead_Click);
-            // 
             // btnArmHome
             // 
             this.btnArmHome.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(153)))));
@@ -760,15 +747,15 @@
             this.drvSpeed.TabIndex = 21;
             this.drvSpeed.Value = 50;
             // 
-            // label6
+            // btnRead
             // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(72, 457);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(35, 13);
-            this.label6.TabIndex = 42;
-            this.label6.Text = "label6";
+            this.btnRead.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(153)))));
+            this.btnRead.Location = new System.Drawing.Point(228, 399);
+            this.btnRead.Name = "btnRead";
+            this.btnRead.Size = new System.Drawing.Size(75, 23);
+            this.btnRead.TabIndex = 41;
+            this.btnRead.Text = "Get Readings";
+            this.btnRead.UseVisualStyleBackColor = false;
             // 
             // Interface
             // 
@@ -863,7 +850,6 @@
         private System.Windows.Forms.CheckBox chkRaiseMast;
         private System.Windows.Forms.Button btnArmHome;
         private System.Windows.Forms.Button btnRead;
-        private System.Windows.Forms.Label label6;
     }
 }
 

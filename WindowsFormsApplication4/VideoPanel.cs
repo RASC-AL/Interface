@@ -28,15 +28,15 @@ namespace RoboOps.Interface
         {
             comm = commModule;
             InitializeComponent();
-            _mjpeg = new MjpegDecoder();  // Initialize the Mjpeg decoder library
-            _mjpeg.FrameReady += mjpeg_FrameReady; // Set the event which will be triggered when frame is received
 
-            //_mjpeg.ParseStream(new Uri("http://128.205.54.5:8080/stream?topic=/chatter"));
-            _mjpeg.ParseStream(new Uri("http://166.143.214.142:8080/stream?topic=/chatter"));
 
-            //Task t1 = new Task(UDPServer, "UDPStream");
+            /////////////////////////////////////////////////
+            //_mjpeg = new MjpegDecoder();  // Initialize the Mjpeg decoder library
+            //_mjpeg.FrameReady += mjpeg_FrameReady; // Set the event which will be triggered when frame is received
 
-            //Task UdpServerTask = Task.Factory.StartNew(UDPServer);
+            //_mjpeg.ParseStream(new Uri("http://166.143.214.142:8080/stream?topic=/chatter"));
+
+           
 
         }
 
@@ -109,8 +109,8 @@ namespace RoboOps.Interface
 
         private void VideoPanel_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _mjpeg.StopStream();
-            fpsCalculate.Reset();
+            //_mjpeg.StopStream();
+            //fpsCalculate.Reset();
         }
 
         private void btnApply_MouseClick(object sender, MouseEventArgs e)
