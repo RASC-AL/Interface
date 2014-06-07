@@ -63,7 +63,7 @@ namespace RoboOps.Interface
             }
         }
 
-        int baseRotation = 144, baseLift = 90, elbow = 130, yaw = 30; //TODO: Assign initial encoder value
+        int baseRotation = 144, baseLift = 90, elbow = 30, yaw = 30, scoop_value = 38; //TODO: Assign initial encoder value
         bool scoop = false;
         State lastState = State.Stop;
 
@@ -93,23 +93,27 @@ namespace RoboOps.Interface
         {
             //Base control
             bool moveArm = false;
-            if (state.X <= Constants.joystickSensitivity && baseRotation < Constants.baseMaxRotation)
+            if (state.X <= (Constants.joystickZeroPose - Constants.joystickSensitivity) && baseRotation < Constants.baseMaxRotation)
             {
-                baseRotation += Constants.baseRotationSensitivity;
+                baseRotation += Math.Abs((state.X  - Constants.joystickZeroPose)/ Constants.joystickSensitivity);
+                //baseRotation += Constants.baseRotationSensitivity;
                 moveArm = true;
             }
-            if (state.X >= Constants.joystickMaxPose - Constants.joystickSensitivity && baseRotation > Constants.baseMinRotation)
+            if (state.X >= Constants.joystickZeroPose + Constants.joystickSensitivity && baseRotation > Constants.baseMinRotation)
             {
-                baseRotation -= Constants.baseRotationSensitivity;
+                baseRotation -= Math.Abs((state.X - Constants.joystickZeroPose) / Constants.joystickSensitivity);
+                //baseRotation -= Constants.baseRotationSensitivity;
                 moveArm = true;
             }
-            if (state.Y <= Constants.joystickSensitivity && baseLift < Constants.baseMaxLift)
+            if (state.Y <= (Constants.joystickZeroPose - Constants.joystickSensitivity) && baseLift < Constants.baseMaxLift)
             {
+                //baseLift += Math.Abs((state.X - Constants.joystickZeroPose) / Constants.joystickSensitivity);
                 baseLift += Constants.baseLiftSensitivity;
                 moveArm = true;
             }
-            if (state.Y >= Constants.joystickMaxPose - Constants.joystickSensitivity && baseLift > Constants.baseMinLift)
+            if (state.Y >= Constants.joystickZeroPose + Constants.joystickSensitivity && baseLift > Constants.baseMinLift)
             {
+                //baseLift -= Math.Abs((state.X - Constants.joystickZeroPose) / Constants.joystickSensitivity);
                 baseLift -= Constants.baseLiftSensitivity;
                 moveArm = true;
             }
@@ -137,10 +141,29 @@ namespace RoboOps.Interface
             }
             if (state.Buttons[0])
             {
+                if (scoop)
+                    scoop_value = 70;
+                else 
+                    scoop_value = 38;
                 scoop = !scoop;
                 moveArm = true;
             }
-
+            if (state.Buttons[4])
+            {
+                if (!(scoop_value < 48))
+                {
+                    scoop_value -= 10;
+                    moveArm = true;
+                }
+            }
+            if (state.Buttons[5])
+            {
+                if (!(scoop_value > 60))
+                {
+                    scoop_value += 5;
+                    moveArm = true;
+                }
+            }
             if (moveArm)
             {
                 lblBase.Text = "Base: " + baseRotation.ToString();
@@ -148,10 +171,8 @@ namespace RoboOps.Interface
                 lblElbow.Text = "Elbow: " + elbow.ToString();
                 lblWrist.Text = "Wrist: " + yaw.ToString();
                 lblScoop.Text = "Scoop: " + scoop.ToString();
-                comm.MoveArm(baseRotation, baseLift, elbow, yaw, scoop ? Constants.scoopOpen : Constants.scoopClose);
+                comm.MoveArm(baseRotation, baseLift, elbow, yaw, scoop_value.ToString());
             }
-            
-
         }
 
         private void DriveMotors(JoystickState state)
@@ -304,7 +325,7 @@ namespace RoboOps.Interface
 
         private void btnStopStream_Click(object sender, EventArgs e)
         {
-            streamPanel.Close();
+            //streamPanel.Close();
         }
 
         private void CheckedChanged(object sender, EventArgs e)
@@ -321,6 +342,8 @@ namespace RoboOps.Interface
         {
             label6.Text = comm.reading();
         }
+
+    
 
     }
 }

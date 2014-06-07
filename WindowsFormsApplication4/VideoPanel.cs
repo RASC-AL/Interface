@@ -202,5 +202,32 @@ namespace RoboOps.Interface
             comm.ChangeCameras(txtCam0.Text+','+txtCam1.Text+','+txtCam2.Text+','+txtCam3.Text);
         }
 
+        private void MovePTZ(int P, int T, int Z)
+        {
+            barPan.Value = P;
+            barTilt.Value = T;
+            barZoom.Value = Z;
+        }
+
+        private void btnDropPos_Click(object sender, EventArgs e)
+        {
+            MovePTZ(130,215,0);
+        }
+
+        private void btnPickPos_Click(object sender, EventArgs e)
+        {
+            MovePTZ(180, 220, 0);
+        }
+
+        private void btnDrivePos_Click(object sender, EventArgs e)
+        {
+            MovePTZ(180, 181, 0);
+        }
+
+        private void btnChangePTZ_Click(object sender, EventArgs e)
+        {
+            MovePTZ(Int16.Parse(txtPan.Text), Int16.Parse(txtTilt.Text), Int16.Parse(txtZoom.Text));
+        }
+
     }
 }

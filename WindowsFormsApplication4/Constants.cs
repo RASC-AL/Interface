@@ -19,7 +19,7 @@ namespace RoboOps.Interface
         public static int joystickZeroPose = 32767;
         public static int joystickMaxPose = 65535;
         public static int joystickTimeSensitivity = 100;
-        public static int joystickSensitivity = 15512;
+        public static int joystickSensitivity = 8190;
 
         //Drive config
         public static int turnSpeed = 90;
@@ -45,10 +45,7 @@ namespace RoboOps.Interface
         public static string scoopOpen = "70";
         public static string scoopClose = "40";
 
-        public static int base_drop = 149;
-        public static int shoulder_drop = 149;
-        public static int elbow_drop = 30;
-        public static int wrist_drop = 149;
+     
         
     }
 }
